@@ -8,7 +8,7 @@
     android:layout_marginTop="@dimen/default_border_margin"
     android:layout_marginRight="@dimen/default_border_margin"
     android:layout_marginBottom="@dimen/default_border_margin"
-    tools:context=".ui.fragments.CryptoCurrenciesFragment">
+    tools:context=".ui.fragments.CryptoCurrenciesSearchFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cryptoCurrenciesRecyclerView"

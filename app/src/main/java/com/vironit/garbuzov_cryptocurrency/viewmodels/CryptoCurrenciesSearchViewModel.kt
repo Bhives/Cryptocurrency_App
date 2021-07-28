@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CryptoCurrenciesViewModel @Inject constructor(private val cryptoCurrencyRepository: CryptoCurrencyRepository) :
+class CryptoCurrenciesSearchViewModel @Inject constructor(cryptoCurrencyRepository: CryptoCurrencyRepository) :
     ViewModel() {
 
     val getCryptoCurrencies =

@@ -47,30 +47,30 @@
             android:background="@color/light_grey">
 
             <TextView
-                android:id="@+id/textView1HTextView"
+                android:id="@+id/percentChange1HTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView1h"
-                app:layout_constraintEnd_toStartOf="@+id/textView24HTextView"
+                app:layout_constraintEnd_toStartOf="@+id/percentChange24HTextView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView24HTextView"
+                android:id="@+id/percentChange24HTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView24h"
-                app:layout_constraintEnd_toStartOf="@+id/textView7DTextView"
-                app:layout_constraintStart_toEndOf="@+id/textView1HTextView"
+                app:layout_constraintEnd_toStartOf="@+id/percentChange7DTextView"
+                app:layout_constraintStart_toEndOf="@+id/percentChange1HTextView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView7DTextView"
+                android:id="@+id/percentChange7DTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView7d"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView24HTextView"
+                app:layout_constraintStart_toEndOf="@+id/percentChange24HTextView"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

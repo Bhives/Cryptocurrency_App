@@ -11,17 +11,17 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_cryptoCurrenciesFragment"
-            app:destination="@id/cryptoCurrenciesFragment" />
+            android:id="@+id/action_loginFragment_to_cryptoCurrenciesSearchFragment"
+            app:destination="@id/cryptoCurrenciesSearchFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/cryptoCurrenciesFragment"
-        android:name="com.vironit.garbuzov_cryptocurrency.ui.fragments.CryptoCurrenciesFragment"
-        android:label="fragment_crypto_currencies"
-        tools:layout="@layout/fragment_crypto_currencies" >
+        android:id="@+id/cryptoCurrenciesSearchFragment"
+        android:name="com.vironit.garbuzov_cryptocurrency.ui.fragments.CryptoCurrenciesSearchFragment"
+        android:label="fragment_crypto_currencies_search"
+        tools:layout="@layout/fragment_crypto_currencies_search" >
         <action
-            android:id="@+id/action_cryptoCurrenciesFragment_to_loginFragment"
+            android:id="@+id/action_cryptoCurrenciesSearchFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

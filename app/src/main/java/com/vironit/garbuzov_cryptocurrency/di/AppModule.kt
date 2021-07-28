@@ -22,6 +22,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUnsplashApi(retrofit: Retrofit): CryptoCurrencyApi =
+    fun provideCryptoCurrencyApi(retrofit: Retrofit): CryptoCurrencyApi =
         retrofit.create(CryptoCurrencyApi::class.java)
 }

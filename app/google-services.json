@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "933862032035",
+    "project_id": "cryptocurrency-app-db44e",
+    "storage_bucket": "cryptocurrency-app-db44e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933862032035:android:46fc5beb27fd29be953516",
+        "android_client_info": {
+          "package_name": "com.vironit.garbuzov_cryptocurrency"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "933862032035-u8ar85lpei7qtbo10pm84kilae2ebrdh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vironit.garbuzov_cryptocurrency",
+            "certificate_hash": "8c5eb915f1ca69e3e37527728e41b0cd2f441a4a"
+          }
+        },
+        {
+          "client_id": "933862032035-e6qf7di0a7rq4ji9fmov25er33vk8q29.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFs72BURsRPwGXUm7j8vmFRd0AWPm_2kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "933862032035-e6qf7di0a7rq4ji9fmov25er33vk8q29.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

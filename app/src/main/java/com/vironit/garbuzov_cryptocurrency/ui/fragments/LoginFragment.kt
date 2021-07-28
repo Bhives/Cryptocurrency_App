@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.app.ActivityCompat
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -34,18 +33,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             .build()
         googleSignInClient = GoogleSignIn.getClient(this.requireActivity(), gso)
         signInButton.setOnClickListener {
-            signIn()
+            val signInIntent = googleSignInClient?.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
         }
-    }
-
-    private fun signIn() {
-        ActivityCompat.requestPermissions(
-            this.requireActivity(),
-            arrayOf(android.Manifest.permission.READ_CONTACTS),
-            100
-        )
-        val signInIntent = googleSignInClient?.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

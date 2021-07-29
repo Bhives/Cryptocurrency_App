@@ -6,13 +6,15 @@ import retrofit2.http.Query
 
 interface CryptoCurrencyApi {
 
-    @Headers("X-CMC_PRO_API_KEY: c404869f-1fad-49bf-89e8-8674cedf351c")
-    @GET("v1/cryptocurrency/listings/latest?")
+    @Headers("X-CMC_PRO_API_KEY: $COINMARKETCAP_KEY")
+    @GET("/v1/cryptocurrency/listings/latest")
     suspend fun searchCryptoCurrencies(
-        @Query("page") page: Int,
-    ): CryptoCurrenciesResults
+        @Query("start") start: Int,
+        @Query("limit") limit: Int
+    ): CryptoCurrenciesResult
 
     companion object {
-        const val BASE_URL = "https://pro-api.coinmarketcap.com/"
+        const val BASE_URL = "https://pro-api.coinmarketcap.com"
+        const val COINMARKETCAP_KEY = "c404869f-1fad-49bf-89e8-8674cedf351c"
     }
 }

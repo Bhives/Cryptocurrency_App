@@ -18,12 +18,12 @@ class CryptoCurrenciesPagingSource(
         val currentPosition = params.key ?: CRYPTOCURRENCY_STARTING_PAGE_INDEX
         return try {
             val response =
-                cryptoCurrencyApi.searchCryptoCurrencies(currentPosition)
-            val cryptoCurrencies = response.results
+                cryptoCurrencyApi.searchCryptoCurrencies(currentPosition, 100)
+            val cryptoCurrencies = response.data
             LoadResult.Page(
                 data = cryptoCurrencies,
                 prevKey = if (currentPosition == CRYPTOCURRENCY_STARTING_PAGE_INDEX) null else currentPosition - 1,
-                nextKey = if (cryptoCurrencies.isEmpty()) null else currentPosition + 1
+                nextKey = if (cryptoCurrencies.isNullOrEmpty()) null else currentPosition + 1
             )
         } catch (iOException: IOException) {
             LoadResult.Error(iOException)

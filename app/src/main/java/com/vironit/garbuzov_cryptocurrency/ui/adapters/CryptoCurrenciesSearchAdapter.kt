@@ -50,12 +50,12 @@ class CryptoCurrenciesSearchAdapter :
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(symbolImageView)
                 nameTextView.text = cryptoCurrency.name
-                priceTextView.text = cryptoCurrency.price
-                marketCapTextView.text = cryptoCurrency.marketCap
-                volume24HTextView.text = cryptoCurrency.volume24H
-                percentChange1HTextView.text = cryptoCurrency.percentChange1H
-                percentChange24HTextView.text = cryptoCurrency.percentChange24H
-                percentChange7DTextView.text = cryptoCurrency.percentChange7D
+                priceTextView.text = cryptoCurrency.quote.getValue("USD").price.toString()
+                marketCapTextView.text = cryptoCurrency.quote.getValue("USD").marketCap.toString()
+                volume24HTextView.text = cryptoCurrency.quote.getValue("USD").volume24H.toString()
+                percentChange1HTextView.text = cryptoCurrency.quote.getValue("USD").percentChange1H.toString()
+                percentChange24HTextView.text = cryptoCurrency.quote.getValue("USD").percentChange24H.toString()
+                percentChange7DTextView.text = cryptoCurrency.quote.getValue("USD").percentChange7D.toString()
             }
         }
     }

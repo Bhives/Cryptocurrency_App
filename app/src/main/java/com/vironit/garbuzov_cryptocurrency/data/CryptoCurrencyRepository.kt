@@ -14,8 +14,8 @@ class CryptoCurrencyRepository @Inject constructor(
 
     fun getCryptoCurrenciesResults() = Pager(
         config = PagingConfig(
-            pageSize = 50,
-            maxSize = 150,
+            pageSize = 1,
+            maxSize = 100,
             enablePlaceholders = false
         ),
         pagingSourceFactory = { CryptoCurrenciesPagingSource(cryptoCurrencyApi) }

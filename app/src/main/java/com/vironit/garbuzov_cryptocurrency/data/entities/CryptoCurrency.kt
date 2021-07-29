@@ -17,10 +17,10 @@ data class CryptoCurrency(
     @SerializedName("slug") @Expose val slug: String?,
     @SerializedName("cmc_rank") @Expose val cmcRank: Int,
     @SerializedName("num_market_pairs") @Expose val numMarketPairs: Int,
-    @SerializedName("circulating_supply") @Expose val circulatingSupply: Number,
-    @SerializedName("total_supply") @Expose val totalSupply: Number,
-    @SerializedName("market_cap_by_total_supply") @Expose val marketCapByTotalSupply: Number,
-    @SerializedName("max_supply") @Expose val maxSupply: Number,
+    @SerializedName("circulating_supply") @Expose val circulatingSupply: Double,
+    @SerializedName("total_supply") @Expose val totalSupply: Double,
+    @SerializedName("market_cap_by_total_supply") @Expose val marketCapByTotalSupply: Double,
+    @SerializedName("max_supply") @Expose val maxSupply: Double,
     @SerializedName("last_updated") @Expose val lastUpdated: String?,
     @SerializedName("date_added") @Expose val dateAdded: String?,
     @SerializedName("tags") @Expose val tags: List<String>,
@@ -38,17 +38,17 @@ data class CryptoCurrency(
 
     @Parcelize
     data class Quote(
-        @SerializedName ("price") @Expose val price: Number,
-        @SerializedName ("volume_24h") @Expose val volume24H: Number,
-        @SerializedName ("volume_24h_reported") @Expose val volume24HReported: Number,
-        @SerializedName ("volume_7d") @Expose val volume7D: Number,
-        @SerializedName ("volume_7d_reported") @Expose val volume7DReported: Number,
-        @SerializedName ("volume_30d") @Expose val volume30D: Number,
-        @SerializedName ("volume_30d_reported") @Expose val volume30DReported: Number,
-        @SerializedName ("market_cap") @Expose val marketCap: Number,
-        @SerializedName ("percent_change_1h") @Expose val percentChange1H: Number,
-        @SerializedName ("percent_change_24h") @Expose val percentChange24H: Number,
-        @SerializedName ("percent_change_7d") @Expose val percentChange7D: Number,
+        @SerializedName ("price") @Expose val price: Double,
+        @SerializedName ("volume_24h") @Expose val volume24H: Double,
+        @SerializedName ("volume_24h_reported") @Expose val volume24HReported: Double,
+        @SerializedName ("volume_7d") @Expose val volume7D: Double,
+        @SerializedName ("volume_7d_reported") @Expose val volume7DReported: Double,
+        @SerializedName ("volume_30d") @Expose val volume30D: Double,
+        @SerializedName ("volume_30d_reported") @Expose val volume30DReported: Double,
+        @SerializedName ("market_cap") @Expose val marketCap: Double,
+        @SerializedName ("percent_change_1h") @Expose val percentChange1H: Double,
+        @SerializedName ("percent_change_24h") @Expose val percentChange24H: Double,
+        @SerializedName ("percent_change_7d") @Expose val percentChange7D: Double,
         @SerializedName ("last_updated") @Expose val lastUpdated: String?
     ) : Parcelable
 }

@@ -24,12 +24,16 @@ class CryptoCurrenciesSearchFragment :
         super.onViewCreated(view, savedInstanceState)
         cryptoCurrenciesSearchAdapter = CryptoCurrenciesSearchAdapter()
         setAdapter()
+        currenciesListRefresher.setOnRefreshListener {
+            setAdapter()
+            currenciesListRefresher.isRefreshing = false
+        }
     }
 
     private fun setAdapter() {
         cryptoCurrenciesRecyclerView.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        viewModel.getCryptoCurrencies.observe(viewLifecycleOwner) {
+        viewModel.getCryptoCurrencies().observe(viewLifecycleOwner) {
             cryptoCurrenciesSearchAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
         cryptoCurrenciesRecyclerView.adapter = cryptoCurrenciesSearchAdapter

@@ -10,6 +10,7 @@
         android:layout_width="@dimen/currency_icon_size"
         android:layout_height="@dimen/currency_icon_size"
         app:layout_constraintStart_toStartOf="parent"
+        android:adjustViewBounds="true"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout

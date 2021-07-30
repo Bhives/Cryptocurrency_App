@@ -22,33 +22,29 @@
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/currency_icon_size"
-            android:text="name"
-            android:layout_marginStart="@dimen/currency_icon_size" />
+            android:layout_marginStart="@dimen/currency_icon_size"
+            android:layout_marginLeft="@dimen/currency_icon_size" />
 
         <TextView
             android:id="@+id/priceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/currency_icon_size"
-            android:text="price"
-            android:layout_marginStart="@dimen/currency_icon_size" />
+            android:layout_marginStart="@dimen/currency_icon_size"
+            android:layout_marginLeft="@dimen/currency_icon_size" />
 
         <TextView
             android:id="@+id/marketCapTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/currency_icon_size"
-            android:text="marketCap"
-            android:layout_marginStart="@dimen/currency_icon_size" />
+            android:layout_marginStart="@dimen/currency_icon_size"
+            android:layout_marginLeft="@dimen/currency_icon_size" />
 
         <TextView
             android:id="@+id/volume24HTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/currency_icon_size"
-            android:text="volume24h"
-            android:layout_marginStart="@dimen/currency_icon_size" />
+            android:layout_marginStart="@dimen/currency_icon_size"
+            android:layout_marginLeft="@dimen/currency_icon_size" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -95,8 +91,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_7d"
-                app:layout_constraintStart_toEndOf="@+id/percentChange24HTextView"
                 app:layout_constraintEnd_toStartOf="@+id/percentChange7DTextView"
+                app:layout_constraintStart_toEndOf="@+id/percentChange24HTextView"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

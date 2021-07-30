@@ -4,18 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/default_border_margin"
-    android:layout_marginTop="@dimen/default_border_margin"
-    android:layout_marginRight="@dimen/default_border_margin"
-    android:layout_marginBottom="@dimen/default_border_margin"
     tools:context=".ui.fragments.CryptoCurrenciesSearchFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cryptoCurrenciesRecyclerView"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/light_blue_app_color"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/Theme.AppCompat.DayNight"
+        app:title="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_border_margin"
+        android:layout_marginTop="@dimen/default_border_margin"
+        android:layout_marginRight="@dimen/default_border_margin"
+        android:layout_marginBottom="@dimen/default_border_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cryptoCurrenciesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

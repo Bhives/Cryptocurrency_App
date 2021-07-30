@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="app_name_text_size">44sp</dimen>
+
     <dimen name="default_border_margin">16dp</dimen>
     <dimen name="card_margin_from_card">4dp</dimen>
     <dimen name="common_corner_radius">16dp</dimen>

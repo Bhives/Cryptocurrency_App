@@ -3,71 +3,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/card_margin_from_card"
     android:layout_marginTop="@dimen/card_margin_from_card">
 
-    <ImageView
-        android:id="@+id/symbolImageView"
-        android:layout_width="@dimen/currency_icon_size"
-        android:layout_height="@dimen/currency_icon_size"
-        app:layout_constraintStart_toStartOf="parent"
-        android:adjustViewBounds="true"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/symbolImageView"
+            android:layout_width="@dimen/currency_icon_size"
+            android:layout_height="@dimen/currency_icon_size"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toTopOf="@id/stonksData"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/currency_icon_size"
-            android:layout_marginLeft="@dimen/currency_icon_size" />
+            android:layout_marginStart="@dimen/card_margin_from_card"
+            android:layout_marginLeft="@dimen/card_margin_from_card"
+            app:layout_constraintStart_toEndOf="@id/symbolImageView"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/priceTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/currency_icon_size"
-            android:layout_marginLeft="@dimen/currency_icon_size" />
+            android:layout_marginStart="@dimen/card_margin_from_card"
+            android:layout_marginLeft="@dimen/card_margin_from_card"
+            app:layout_constraintStart_toEndOf="@id/symbolImageView"
+            app:layout_constraintTop_toBottomOf="@id/nameTextView" />
 
         <TextView
             android:id="@+id/marketCapTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/currency_icon_size"
-            android:layout_marginLeft="@dimen/currency_icon_size" />
+            android:layout_marginStart="@dimen/card_margin_from_card"
+            android:layout_marginLeft="@dimen/card_margin_from_card"
+            app:layout_constraintStart_toEndOf="@id/symbolImageView"
+            app:layout_constraintTop_toBottomOf="@id/priceTextView" />
 
         <TextView
             android:id="@+id/volume24HTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/currency_icon_size"
-            android:layout_marginLeft="@dimen/currency_icon_size" />
+            android:layout_marginStart="@dimen/card_margin_from_card"
+            android:layout_marginLeft="@dimen/card_margin_from_card"
+            app:layout_constraintStart_toEndOf="@id/symbolImageView"
+            app:layout_constraintTop_toBottomOf="@id/marketCapTextView" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/stonksData"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/card_margin_from_card"
-            android:background="@color/light_grey">
+            android:background="@color/light_grey"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/label1HTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/label_1h"
-                app:layout_constraintEnd_toStartOf="@+id/percentChange1HTextView"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/percentChange1HTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/percentChange24HTextView"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_weight="2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -75,16 +86,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_24h"
-                app:layout_constraintEnd_toStartOf="@+id/percentChange24HTextView"
-                app:layout_constraintStart_toEndOf="@+id/percentChange1HTextView"
+                android:layout_weight="1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/percentChange24HTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toStartOf="@+id/label7DTextView"
-                app:layout_constraintStart_toEndOf="@+id/label24HTextView"
+                android:layout_weight="2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -92,17 +101,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_7d"
-                app:layout_constraintEnd_toStartOf="@+id/percentChange7DTextView"
-                app:layout_constraintStart_toEndOf="@+id/percentChange24HTextView"
+                android:layout_weight="1"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/percentChange7DTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/label7DTextView"
+                android:layout_weight="2"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

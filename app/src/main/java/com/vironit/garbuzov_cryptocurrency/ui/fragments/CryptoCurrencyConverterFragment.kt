@@ -39,7 +39,7 @@ class CryptoCurrencyConverterFragment :
                         currencyInput.setText(
                             viewModel.convertCryptoCurrency(
                                 cryptoCurrencyInput.text.toString().toDouble(),
-                                this.toString(), currencyTypesSpinner.selectedItem.toString()
+                                this.toString()
                             ).toString()
                         )
                     } catch (iOException: IOException) {

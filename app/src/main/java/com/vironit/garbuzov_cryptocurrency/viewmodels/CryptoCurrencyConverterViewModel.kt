@@ -11,12 +11,8 @@ import javax.inject.Inject
 class CryptoCurrencyConverterViewModel @Inject constructor(var cryptoCurrencyRepository: CryptoCurrencyRepository) :
     ViewModel() {
 
-    private suspend fun getCurrentCryptoCurrency(cryptoCurrencyType: String): CryptoCurrency {
-        return cryptoCurrencyRepository.getCurrentCryptoCurrency(cryptoCurrencyType)
-    }
-
-    suspend fun convertCryptoCurrency(amount: Double, cryptoCurrencyType: String, currencyType: String): Double {
-        return amount * getCurrentCryptoCurrency(cryptoCurrencyType).quote.getValue(currencyType).price
+    suspend fun convertCryptoCurrency(amount: Double, symbol: String): Double {
+        return cryptoCurrencyRepository.getCurrentCryptoCurrency(amount, symbol).quote.getValue("USD").price
     }
 
     @SuppressLint("NewApi")

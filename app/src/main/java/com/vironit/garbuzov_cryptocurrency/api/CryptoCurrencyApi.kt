@@ -15,10 +15,11 @@ interface CryptoCurrencyApi {
     ): CryptoCurrenciesResult
 
     @Headers("X-CMC_PRO_API_KEY: $COINMARKETCAP_KEY")
-    @GET("/v1/cryptocurrency/listings/latest")
+    @GET("/v1/tools/price-conversion")
     suspend fun getCurrentCryptoCurrency(
-        @Query("convert") symbol: String,
-    ): CryptoCurrency
+        @Query("amount") amount: Double,
+        @Query("symbol") symbol: String
+    ): ConvertedCryptoCurrencyResult
 
     companion object {
         const val BASE_URL = "https://pro-api.coinmarketcap.com"

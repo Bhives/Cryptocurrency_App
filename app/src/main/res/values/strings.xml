@@ -1,7 +1,15 @@
 <resources>
     <string name="app_name">Garbuzov_Cryptocurrency</string>
     <string name="app_display_name">Garbuzov\'s Cryptocurrency app</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_quit">Quit</string>
+
     <string name="label_1h">1h: </string>
     <string name="label_24h">24h: </string>
     <string name="label_7d">7d: </string>
+
+    <string name="rate_date">Currency rate date: </string>
+    <string name="from">From</string>
+    <string name="to">To</string>
 </resources>

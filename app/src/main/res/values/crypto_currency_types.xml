@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="crypto_currency_types_array">
+        <item>BTC</item>
+        <item>WBTC</item>
+        <item>YFI</item>
+    </string-array>
+</resources>

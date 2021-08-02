@@ -1,10 +1,12 @@
 package com.vironit.garbuzov_cryptocurrency.ui.fragments
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -14,19 +16,24 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.databinding.FragmentLoginBinding
+import com.vironit.garbuzov_cryptocurrency.ui.bindingActivity
 import com.vironit.garbuzov_cryptocurrency.ui.templates.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
+
+@SuppressLint("StaticFieldLeak")
+var googleSignInClient: GoogleSignInClient? = null
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     val RC_SIGN_IN = 1
-    var googleSignInClient: GoogleSignInClient? = null
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bindingActivity.bottomNavigationMenu.isVisible = false
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -64,6 +71,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                 }
             }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        bindingActivity.bottomNavigationMenu.isVisible = true
     }
 
 }

@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.vironit.garbuzov_cryptocurrency.api.CryptoCurrencyApi
+import com.vironit.garbuzov_cryptocurrency.data.entities.CryptoCurrency
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -20,4 +21,8 @@ class CryptoCurrencyRepository @Inject constructor(
         ),
         pagingSourceFactory = { CryptoCurrenciesPagingSource(cryptoCurrencyApi) }
     ).liveData
+
+    suspend fun getCurrentCryptoCurrency(currencyCode: String): CryptoCurrency {
+           return cryptoCurrencyApi.getCurrentCryptoCurrency(currencyCode)
+    }
 }

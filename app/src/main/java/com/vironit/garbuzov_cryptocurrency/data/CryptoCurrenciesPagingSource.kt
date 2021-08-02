@@ -18,7 +18,7 @@ class CryptoCurrenciesPagingSource(
         val currentPosition = params.key ?: CRYPTOCURRENCY_STARTING_PAGE_INDEX
         return try {
             val response =
-                cryptoCurrencyApi.searchCryptoCurrencies(currentPosition, 100)
+                cryptoCurrencyApi.getAllCryptoCurrencies(currentPosition, 100)
             val cryptoCurrencies = response.data
             LoadResult.Page(
                 data = cryptoCurrencies,

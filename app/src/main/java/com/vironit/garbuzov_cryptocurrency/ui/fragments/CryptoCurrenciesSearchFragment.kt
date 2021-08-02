@@ -1,10 +1,18 @@
 package com.vironit.garbuzov_cryptocurrency.ui.fragments
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.databinding.FragmentCryptoCurrenciesSearchBinding
 import com.vironit.garbuzov_cryptocurrency.ui.adapters.CryptoCurrenciesSearchAdapter
@@ -22,6 +30,19 @@ class CryptoCurrenciesSearchFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navigationMenu.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_home -> {
+                    true
+                }
+                R.id.nav_quit -> {
+                    Firebase.auth.signOut()
+                    googleSignInClient!!.signOut()
+                    findNavController().navigate(CryptoCurrenciesSearchFragmentDirections.actionCryptoCurrenciesSearchFragmentToLoginFragment())
+                }
+            }
+            true
+        }
         cryptoCurrenciesSearchAdapter = CryptoCurrenciesSearchAdapter()
         setAdapter()
         currenciesListRefresher.setOnRefreshListener {

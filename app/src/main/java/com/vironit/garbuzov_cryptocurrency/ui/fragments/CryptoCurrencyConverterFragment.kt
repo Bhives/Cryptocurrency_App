@@ -23,6 +23,7 @@ class CryptoCurrencyConverterFragment :
     BaseFragment<CryptoCurrencyCardBinding>(R.layout.fragment_crypto_currency_converter) {
 
     override val viewModel by viewModels<CryptoCurrencyConverterViewModel>()
+    var layoutPositionFlag = 0
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,10 +32,10 @@ class CryptoCurrencyConverterFragment :
         displayCurrencyRate()
         cryptoCurrencyInput.addTextChangedListener {
             if (!currencyInput.hasFocus()) {
+                convertFromCryptoCurrency()
                 if (cryptoCurrencyInput.text.isEmpty()) {
                     currencyInput.text.clear()
                 }
-                convertFromCryptoCurrency()
             }
         }
         cryptoCurrencyTypesSpinner.onItemSelectedListener =
@@ -56,10 +57,10 @@ class CryptoCurrencyConverterFragment :
             }
         currencyInput.addTextChangedListener {
             if (!cryptoCurrencyInput.hasFocus()) {
+                convertToCryptoCurrency()
                 if (currencyInput.text.isEmpty()) {
                     cryptoCurrencyInput.text.clear()
                 }
-                convertToCryptoCurrency()
             }
         }
         currencyTypesSpinner.onItemSelectedListener =
@@ -79,6 +80,9 @@ class CryptoCurrencyConverterFragment :
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
+        swapCurrenciesButton.setOnClickListener {
+            swapCurrencies()
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -159,6 +163,27 @@ class CryptoCurrencyConverterFragment :
                     ).show()
                     noSuchElementException.printStackTrace()
                 }
+            }
+        }
+    }
+
+    private fun swapCurrencies() {
+        val fromLayoutY = fromLayout.y
+        val toLayoutY = toLayout.y
+        val cryptoCurrencyText = cryptoCurrencyInput.text
+        val currencyText = currencyInput.text
+        fromLayout.y = toLayoutY
+        toLayout.y = fromLayoutY
+        cryptoCurrencyInput.text = currencyText
+        currencyInput.text = cryptoCurrencyText
+        when (layoutPositionFlag) {
+            0 -> {
+                convertToCryptoCurrency()
+                layoutPositionFlag = 1
+            }
+            1 -> {
+                convertFromCryptoCurrency()
+                layoutPositionFlag = 0
             }
         }
     }

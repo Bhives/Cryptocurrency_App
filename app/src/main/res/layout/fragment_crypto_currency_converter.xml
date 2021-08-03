@@ -52,7 +52,7 @@
             android:id="@+id/cryptoCurrencyInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="start"
             android:hint="0.00"
             android:inputType="numberDecimal"
             android:singleLine="true" />
@@ -94,7 +94,7 @@
             android:id="@+id/currencyInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="start"
             android:hint="0.00"
             android:inputType="numberDecimal"
             android:singleLine="true" />

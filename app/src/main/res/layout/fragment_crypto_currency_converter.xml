@@ -45,14 +45,17 @@
             android:id="@+id/cryptoCurrencyTypesSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start"
+            android:layout_gravity="start"
             android:entries="@array/crypto_currency_types_array" />
 
         <EditText
             android:id="@+id/cryptoCurrencyInput"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end" />
+            android:layout_gravity="end"
+            android:hint="0.00"
+            android:inputType="numberDecimal"
+            android:singleLine="true" />
     </LinearLayout>
 
     <ImageButton
@@ -89,8 +92,11 @@
 
         <EditText
             android:id="@+id/currencyInput"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="end" />
+            android:layout_gravity="end"
+            android:hint="0.00"
+            android:inputType="numberDecimal"
+            android:singleLine="true" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

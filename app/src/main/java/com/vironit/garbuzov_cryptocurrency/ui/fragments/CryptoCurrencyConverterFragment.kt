@@ -89,44 +89,37 @@ class CryptoCurrencyConverterFragment :
                 1.0,
                 this.toString()
             ).observe(viewLifecycleOwner, {
+                currentCryptoCurrency = it
                 rateValueTextView.text = "1 $this = ${
                     String.format(
-                        "%.2f", it.quote.getValue("USD").price
+                        "%.2f", currentCryptoCurrency.quote.getValue("USD").price
                     )
                 }$"
-                rateDateTextView.text = "${R.string.rate_date} ${it.quote.getValue("USD").lastUpdated}"
+                rateDateTextView.text =
+                    "${R.string.rate_date} ${currentCryptoCurrency.quote.getValue("USD").lastUpdated}"
             })
         }
     }
 
     private fun convertFromCryptoCurrency() {
-        with(cryptoCurrencyTypesSpinner.selectedItem) {
-            try {
-                if (cryptoCurrencyInput.text.toString().toDouble() > 0.0) {
-                    viewModel.getConvertedCryptoCurrency(
-                        cryptoCurrencyInput.text.toString().toDouble(),
-                        this.toString()
-                    ).observe(viewLifecycleOwner, {
-                        currencyInput.setText(
-                            String.format(
-                                "%.2f",
-                                it.quote[currencyTypesSpinner.selectedItem.toString()]?.price
-                            )
-                        )
-                    })
-                }
-            } catch (httpException: HttpException) {
-                httpException.printStackTrace()
-            } catch (numberFormatException: NumberFormatException) {
-                numberFormatException.printStackTrace()
-            } catch (noSuchElementException: NoSuchElementException) {
-                Toast.makeText(
-                    context,
-                    "No rate was found for the ${currencyTypesSpinner.selectedItem} currency",
-                    Toast.LENGTH_SHORT
-                ).show()
-                noSuchElementException.printStackTrace()
+        try {
+            if (cryptoCurrencyInput.text.toString().toDouble() > 0.0) {
+                currencyInput.setText(
+                    String.format(
+                        "%.2f",
+                        currentCryptoCurrency.quote[currencyTypesSpinner.selectedItem.toString()]?.price
+                    )
+                )
             }
+        } catch (numberFormatException: NumberFormatException) {
+            numberFormatException.printStackTrace()
+        } catch (noSuchElementException: NoSuchElementException) {
+            Toast.makeText(
+                context,
+                "No rate was found for the ${currencyTypesSpinner.selectedItem} currency",
+                Toast.LENGTH_SHORT
+            ).show()
+            noSuchElementException.printStackTrace()
         }
     }
 
@@ -134,20 +127,15 @@ class CryptoCurrencyConverterFragment :
         with(currencyTypesSpinner.selectedItem) {
             try {
                 if (currencyInput.text.toString().toDouble() > 0.0) {
-                    viewModel.getConvertedCryptoCurrency(
-                        1.0,
-                        cryptoCurrencyTypesSpinner.selectedItem.toString()
-                    ).observe(viewLifecycleOwner, {
-                        if (currencyInput.text.toString() != "") {
-                            cryptoCurrencyInput.setText(
-                                String.format(
-                                    "%.2f",
-                                    (currencyInput.text.toString()
-                                        .toDouble() / it.quote[this.toString()]?.price!!)
-                                )
+                    if (currencyInput.text.toString() != "") {
+                        cryptoCurrencyInput.setText(
+                            String.format(
+                                "%.2f",
+                                (currencyInput.text.toString()
+                                    .toDouble() / currentCryptoCurrency.quote[this.toString()]?.price!!)
                             )
-                        }
-                    })
+                        )
+                    }
                 }
             } catch (httpException: HttpException) {
                 httpException.printStackTrace()

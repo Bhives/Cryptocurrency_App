@@ -15,23 +15,6 @@ import javax.inject.Inject
 class CryptoCurrencyConverterViewModel @Inject constructor(var cryptoCurrencyRepository: CryptoCurrencyRepository) :
     ViewModel() {
 
-    fun convertCryptoCurrency(
-        amount: Double,
-        cryptoCurrencySymbol: String,
-        currencySymbol: String
-    ): LiveData<Double> {
-        val result = MutableLiveData<Double>()
-        viewModelScope.launch(Dispatchers.Default) {
-            result.postValue(
-                cryptoCurrencyRepository.getCurrentCryptoCurrency(
-                    amount,
-                    cryptoCurrencySymbol
-                ).quote.getValue(currencySymbol).price
-            )
-        }
-        return result
-    }
-
     fun getConvertedCryptoCurrency(
         amount: Double,
         cryptoCurrencySymbol: String

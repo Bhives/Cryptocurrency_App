@@ -3,8 +3,8 @@ package com.vironit.garbuzov_cryptocurrency.ui.adapters
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.vironit.garbuzov_cryptocurrency.ui.fragments.crypto_currency_rates.CryptoCurrenciesSearchFragment
-import com.vironit.garbuzov_cryptocurrency.ui.fragments.crypto_currency_rates.FavoriteCryptoCurrenciesFragment
+import com.vironit.garbuzov_cryptocurrency.ui.fragments.cryptocurrency_rates.CryptoCurrenciesSearchFragment
+import com.vironit.garbuzov_cryptocurrency.ui.fragments.cryptocurrency_rates.FavoriteCryptoCurrenciesFragment
 
 class CryptoCurrencyRatesFragmentPagerAdapter(fragmentManager: FragmentManager) :
     FragmentPagerAdapter(

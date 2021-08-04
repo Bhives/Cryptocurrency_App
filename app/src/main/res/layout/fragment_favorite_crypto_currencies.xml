@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.crypto_currency_rates.FavoriteCryptoCurrenciesFragment">
+    android:layout_marginLeft="@dimen/default_border_margin"
+    android:layout_marginTop="@dimen/default_border_margin"
+    android:layout_marginRight="@dimen/default_border_margin"
+    android:layout_marginBottom="@dimen/default_border_margin"
+    tools:context=".ui.fragments.cryptocurrency_rates.FavoriteCryptoCurrenciesFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoriteCryptoCurrenciesRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="SAMPLE" />
-
+        android:layout_height="wrap_content" />
 </FrameLayout>

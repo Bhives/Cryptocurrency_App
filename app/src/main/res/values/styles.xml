@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds" tools:targetApi="lollipop">false</item>
+    </style>
+
+    <style name="Widget.Button.Toggle" parent="android:Widget">
+        <item name="android:background">@drawable/favorite_toggle_bg</item>
+        <item name="android:disabledAlpha">?android:attr/disabledAlpha</item>
+    </style>
+
+    <style name="toggleButton" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
+        <item name="android:textOn" />
+        <item name="android:textOff" />
+    </style>
+
+</resources>

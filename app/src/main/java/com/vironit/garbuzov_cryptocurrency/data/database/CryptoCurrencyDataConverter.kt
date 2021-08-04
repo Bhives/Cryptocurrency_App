@@ -4,19 +4,17 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.vironit.garbuzov_cryptocurrency.data.entities.CryptoCurrency
 import java.lang.reflect.Type
-import java.util.*
 import java.util.stream.Collectors
 
 class CryptoCurrencyDataConverter {
 
     @RequiresApi(Build.VERSION_CODES.N)
     @TypeConverter
-    fun fromTags(tags: List<String?>): String? {
-        return tags.stream().collect(Collectors.joining(","))
+    fun fromTags(tags: List<String>): String? {
+        return tags.joinToString(",")
     }
 
     @TypeConverter
@@ -43,12 +41,17 @@ class CryptoCurrencyDataConverter {
     }
 
     @TypeConverter
-    fun toMap(value: JsonElement): Map<String, CryptoCurrency.Quote> =
-        Gson().fromJson(value, object : TypeToken<Map<String, CryptoCurrency.Quote>>() {}.type)
+    fun toMap(map: String): Map<String, CryptoCurrency.Quote> {
+        return Gson().fromJson(
+            map,
+            object : TypeToken<Map<String, CryptoCurrency.Quote>>() {}.type
+        )
+    }
 
     @TypeConverter
-    fun fromMap(value: Map<String, CryptoCurrency.Quote>): String =
-        Gson().toJson(value)
+    fun fromMap(map: Map<String, CryptoCurrency.Quote>): String {
+        return Gson().toJson(map)
+    }
 
     @TypeConverter
     fun fromQuote(quote: CryptoCurrency.Quote): String? {

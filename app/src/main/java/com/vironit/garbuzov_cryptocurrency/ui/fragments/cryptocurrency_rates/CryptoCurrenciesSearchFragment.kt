@@ -1,4 +1,4 @@
-package com.vironit.garbuzov_cryptocurrency.ui.fragments.crypto_currency_rates
+package com.vironit.garbuzov_cryptocurrency.ui.fragments.cryptocurrency_rates
 
 import android.os.Bundle
 import android.view.View
@@ -22,7 +22,7 @@ class CryptoCurrenciesSearchFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cryptoCurrenciesSearchAdapter = CryptoCurrenciesSearchAdapter()
+        cryptoCurrenciesSearchAdapter = CryptoCurrenciesSearchAdapter(viewModel)
         setAdapter()
         currenciesListRefresher.setOnRefreshListener {
             setAdapter()

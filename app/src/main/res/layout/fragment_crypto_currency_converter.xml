@@ -4,98 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/default_border_margin"
-    android:layout_marginTop="@dimen/default_border_margin"
-    android:layout_marginRight="@dimen/default_border_margin"
-    android:layout_marginBottom="@dimen/default_border_margin"
     tools:context=".ui.fragments.CryptoCurrencyConverterFragment">
 
-    <TextView
-        android:id="@+id/rateDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/rateValueTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rateDateTextView" />
-
-    <TextView
-        android:id="@+id/fromTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/from"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rateValueTextView" />
-
-    <LinearLayout
-        android:id="@+id/fromLayout"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fromTextView">
+        android:background="@color/red"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/Theme.AppCompat.DayNight"
+        app:title="@string/app_name" />
 
-        <Spinner
-            android:id="@+id/cryptoCurrencyTypesSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:entries="@array/crypto_currency_types_array" />
-
-        <EditText
-            android:id="@+id/cryptoCurrencyInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:hint="0.00"
-            android:inputType="numberDecimal"
-            android:singleLine="true" />
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/swapCurrenciesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_swap_currencies"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fromLayout" />
-
-    <TextView
-        android:id="@+id/toTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/to"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/swapCurrenciesButton" />
-
-    <LinearLayout
-        android:id="@+id/toLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/default_border_margin"
+        android:layout_marginTop="@dimen/default_border_margin"
+        android:layout_marginRight="@dimen/default_border_margin"
+        android:layout_marginBottom="@dimen/default_border_margin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toTextView">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <Spinner
-            android:id="@+id/currencyTypesSpinner"
+        <TextView
+            android:id="@+id/rateDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:entries="@array/currency_types_array" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/currencyInput"
+        <TextView
+            android:id="@+id/rateValueTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rateDateTextView" />
+
+        <TextView
+            android:id="@+id/fromTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/from"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rateValueTextView" />
+
+        <LinearLayout
+            android:id="@+id/fromLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:hint="0.00"
-            android:inputType="numberDecimal"
-            android:singleLine="true" />
-    </LinearLayout>
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fromTextView">
+
+            <Spinner
+                android:id="@+id/cryptoCurrencyTypesSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:entries="@array/crypto_currency_types_array" />
+
+            <EditText
+                android:id="@+id/cryptoCurrencyInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:hint="0.00"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/swapCurrenciesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_swap_currencies"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fromLayout" />
+
+        <TextView
+            android:id="@+id/toTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/swapCurrenciesButton" />
+
+        <LinearLayout
+            android:id="@+id/toLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toTextView">
+
+            <Spinner
+                android:id="@+id/currencyTypesSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:entries="@array/currency_types_array" />
+
+            <EditText
+                android:id="@+id/currencyInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:hint="0.00"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

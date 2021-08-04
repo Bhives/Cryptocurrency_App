@@ -9,8 +9,14 @@ interface FavoriteCryptoCurrencyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertToFavorites(cryptoCurrency: CryptoCurrency)
 
+    @Update
+    fun updateFavoriteCurrency(cryptoCurrency: CryptoCurrency)
+
     @Query("SELECT * FROM crypto_currency")
-    fun getFavoriteCryptoCurrencies(): LiveData<List<CryptoCurrency>>
+    fun getAllFavoriteCryptoCurrencies(): LiveData<List<CryptoCurrency>>
+
+    @Query("SELECT * FROM crypto_currency WHERE symbol=:symbol")
+    fun getFavoriteCryptoCurrency(symbol: String): LiveData<CryptoCurrency>
 
     @Delete
     fun removeFromFavorites(cryptoCurrency: CryptoCurrency)

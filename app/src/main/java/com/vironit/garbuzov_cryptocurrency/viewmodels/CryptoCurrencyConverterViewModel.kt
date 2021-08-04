@@ -20,7 +20,7 @@ class CryptoCurrencyConverterViewModel @Inject constructor(var cryptoCurrencyRep
         cryptoCurrencySymbol: String
     ): LiveData<ConvertedCryptoCurrency> {
         val result = MutableLiveData<ConvertedCryptoCurrency>()
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.IO) {
             result.postValue(
                 cryptoCurrencyRepository.getCurrentCryptoCurrency(
                     amount,

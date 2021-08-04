@@ -4,18 +4,21 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.vironit.garbuzov_cryptocurrency.data.entities.CryptoCurrency
 import com.vironit.garbuzov_cryptocurrency.databinding.CryptoCurrencyCardBinding
-import com.vironit.garbuzov_cryptocurrency.viewmodels.CryptoCurrenciesSearchViewModel
+import com.vironit.garbuzov_cryptocurrency.viewmodels.FavoriteCryptoCurrenciesViewModel
 import kotlin.math.roundToInt
 
-class CryptoCurrenciesSearchAdapter (val cryptoCurrenciesSearchViewModel: CryptoCurrenciesSearchViewModel) :
-    PagingDataAdapter<CryptoCurrency, CryptoCurrenciesSearchAdapter.CryptoCurrenciesSearchHolder>(
+class FavoriteCryptoCurrenciesAdapter(
+    val favoriteCryptoCurrenciesViewModel: FavoriteCryptoCurrenciesViewModel,
+    var favoriteCryptoCurrenciesList: List<CryptoCurrency>
+) :
+    ListAdapter<CryptoCurrency, FavoriteCryptoCurrenciesAdapter.FavoriteCryptoCurrenciesHolder>(
         CRYPTO_CURRENCY_COMPARATOR
     ) {
 
@@ -24,20 +27,21 @@ class CryptoCurrenciesSearchAdapter (val cryptoCurrenciesSearchViewModel: Crypto
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CryptoCurrenciesSearchHolder {
+    ): FavoriteCryptoCurrenciesHolder {
         val binding =
             CryptoCurrencyCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CryptoCurrenciesSearchHolder(binding)
+        return FavoriteCryptoCurrenciesHolder(binding)
     }
 
-    override fun onBindViewHolder(searchHolder: CryptoCurrenciesSearchHolder, position: Int) {
-        val currentCryptoCurrency = getItem(position)
-        if (currentCryptoCurrency != null) {
-            searchHolder.bindCryptoCurrency(currentCryptoCurrency)
-        }
+    override fun onBindViewHolder(holderFavorite: FavoriteCryptoCurrenciesHolder, position: Int) {
+        holderFavorite.bindCryptoCurrency(favoriteCryptoCurrenciesList[position])
+        //val currentCryptoCurrency = getItem(position)
+        //if (currentCryptoCurrency != null) {
+        //    holderFavorite.bindCryptoCurrency(currentCryptoCurrency)
+        //}
     }
 
-    inner class CryptoCurrenciesSearchHolder(private val binding: CryptoCurrencyCardBinding) :
+    inner class FavoriteCryptoCurrenciesHolder(private val binding: CryptoCurrencyCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
@@ -100,16 +104,9 @@ class CryptoCurrenciesSearchAdapter (val cryptoCurrenciesSearchViewModel: Crypto
                         }
                     )
                 )
-
-                if (cryptoCurrenciesSearchViewModel.getAllFavoriteCryptoCurrencies().value?.contains(cryptoCurrency) == true) {
-                    addToFavoritesButton.isChecked = true
-                    cryptoCurrenciesSearchViewModel.updateFavoriteCurrency(cryptoCurrency)
-                }
                 addToFavoritesButton.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
-                        cryptoCurrenciesSearchViewModel.insertToFavorites(cryptoCurrency)
-                    } else {
-                        cryptoCurrenciesSearchViewModel.removeFromFavorites(cryptoCurrency)
+                    if (!isChecked) {
+                        favoriteCryptoCurrenciesViewModel.removeFromFavorites(cryptoCurrency)
                     }
                 }
             }

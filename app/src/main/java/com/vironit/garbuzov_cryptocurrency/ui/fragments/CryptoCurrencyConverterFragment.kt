@@ -84,61 +84,61 @@ class CryptoCurrencyConverterFragment :
 
     @SuppressLint("SetTextI18n")
     fun displayCurrencyRate() {
-        with(cryptoCurrencyTypesSpinner.selectedItem) {
-            viewModel.getConvertedCryptoCurrency(
-                1.0,
-                this.toString()
-            ).observe(viewLifecycleOwner, {
-                currentCryptoCurrency = it
-                rateValueTextView.text = "1 $this = ${
-                    String.format(
-                        "%.2f", currentCryptoCurrency.quote.getValue("USD").price
-                    )
-                }$"
-                rateDateTextView.text =
-                    "${R.string.rate_date} ${currentCryptoCurrency.quote.getValue("USD").lastUpdated}"
-            })
+        try {
+            with(cryptoCurrencyTypesSpinner.selectedItem.toString()) {
+                viewModel.getConvertedCryptoCurrency(
+                    1.0,
+                    this
+                ).observe(viewLifecycleOwner, {
+                    currentCryptoCurrency = it
+                    rateValueTextView.text = "1 $this = ${
+                        String.format(
+                            "%.2f", currentCryptoCurrency.quote.getValue("USD").price
+                        )
+                    }$"
+                    rateDateTextView.text =
+                        "${R.string.rate_date} ${currentCryptoCurrency.quote.getValue("USD").lastUpdated}"
+                })
+            }
+        } catch (httpException: HttpException) {
+            httpException.printStackTrace()
         }
     }
 
     private fun convertFromCryptoCurrency() {
-        try {
-            if (cryptoCurrencyInput.text.toString().toDouble() > 0.0) {
-                currencyInput.setText(
-                    String.format(
-                        "%.2f",
-                        currentCryptoCurrency.quote[currencyTypesSpinner.selectedItem.toString()]?.price
+        with(currencyTypesSpinner.selectedItem) {
+            try {
+                if (cryptoCurrencyInput.text.toString().toDouble() > 0.0) {
+                    currencyInput.setText(
+                        String.format(
+                            "%.2f",
+                            currentCryptoCurrency.quote[this.toString()]?.price!! * cryptoCurrencyInput.text.toString().toDouble()
+                        )
                     )
-                )
+                }
+            } catch (numberFormatException: NumberFormatException) {
+                numberFormatException.printStackTrace()
+            } catch (noSuchElementException: NoSuchElementException) {
+                Toast.makeText(
+                    context,
+                    "No rate was found for the $this currency",
+                    Toast.LENGTH_SHORT
+                ).show()
+                noSuchElementException.printStackTrace()
             }
-        } catch (numberFormatException: NumberFormatException) {
-            numberFormatException.printStackTrace()
-        } catch (noSuchElementException: NoSuchElementException) {
-            Toast.makeText(
-                context,
-                "No rate was found for the ${currencyTypesSpinner.selectedItem} currency",
-                Toast.LENGTH_SHORT
-            ).show()
-            noSuchElementException.printStackTrace()
         }
     }
 
     private fun convertToCryptoCurrency() {
         with(currencyTypesSpinner.selectedItem) {
             try {
-                if (currencyInput.text.toString().toDouble() > 0.0) {
-                    if (currencyInput.text.toString() != "") {
-                        cryptoCurrencyInput.setText(
-                            String.format(
-                                "%.2f",
-                                (currencyInput.text.toString()
-                                    .toDouble() / currentCryptoCurrency.quote[this.toString()]?.price!!)
-                            )
-                        )
-                    }
-                }
-            } catch (httpException: HttpException) {
-                httpException.printStackTrace()
+                cryptoCurrencyInput.setText(
+                    String.format(
+                        "%.2f",
+                        (currencyInput.text.toString()
+                            .toDouble() / currentCryptoCurrency.quote[this.toString()]?.price!!)
+                    )
+                )
             } catch (numberFormatException: NumberFormatException) {
                 numberFormatException.printStackTrace()
             } catch (noSuchElementException: NoSuchElementException) {

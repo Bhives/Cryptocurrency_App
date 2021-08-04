@@ -7,35 +7,33 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.vironit.garbuzov_cryptocurrency.R
+import com.vironit.garbuzov_cryptocurrency.data.entities.ConvertedCryptoCurrency
 import com.vironit.garbuzov_cryptocurrency.databinding.CryptoCurrencyCardBinding
 import com.vironit.garbuzov_cryptocurrency.ui.templates.BaseFragment
 import com.vironit.garbuzov_cryptocurrency.viewmodels.CryptoCurrencyConverterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_crypto_currency_converter.*
-import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import java.io.IOException
 
 @AndroidEntryPoint
 class CryptoCurrencyConverterFragment :
     BaseFragment<CryptoCurrencyCardBinding>(R.layout.fragment_crypto_currency_converter) {
 
     override val viewModel by viewModels<CryptoCurrencyConverterViewModel>()
+    lateinit var currentCryptoCurrency: ConvertedCryptoCurrency
     var layoutPositionFlag = 0
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rateDateTextView.text = rateDateTextView.text.toString() + viewModel.getCurrentDate()
         displayCurrencyRate()
         cryptoCurrencyInput.addTextChangedListener {
             if (!currencyInput.hasFocus()) {
-                convertFromCryptoCurrency()
                 if (cryptoCurrencyInput.text.isEmpty()) {
                     currencyInput.text.clear()
                 }
+                convertFromCryptoCurrency()
             }
         }
         cryptoCurrencyTypesSpinner.onItemSelectedListener =
@@ -57,10 +55,10 @@ class CryptoCurrencyConverterFragment :
             }
         currencyInput.addTextChangedListener {
             if (!cryptoCurrencyInput.hasFocus()) {
-                convertToCryptoCurrency()
                 if (currencyInput.text.isEmpty()) {
                     cryptoCurrencyInput.text.clear()
                 }
+                convertToCryptoCurrency()
             }
         }
         currencyTypesSpinner.onItemSelectedListener =
@@ -71,7 +69,6 @@ class CryptoCurrencyConverterFragment :
                     position: Int,
                     id: Long
                 ) {
-                    displayCurrencyRate()
                     if (!cryptoCurrencyInput.hasFocus()) {
                         convertToCryptoCurrency()
                     }
@@ -87,82 +84,82 @@ class CryptoCurrencyConverterFragment :
 
     @SuppressLint("SetTextI18n")
     fun displayCurrencyRate() {
-        lifecycleScope.launch {
-            with(cryptoCurrencyTypesSpinner.selectedItem) {
+        with(cryptoCurrencyTypesSpinner.selectedItem) {
+            viewModel.getConvertedCryptoCurrency(
+                1.0,
+                this.toString()
+            ).observe(viewLifecycleOwner, {
                 rateValueTextView.text = "1 $this = ${
                     String.format(
-                        "%.2f", viewModel.convertCryptoCurrency(
-                            1.0,
-                            this.toString(),
-                            "USD"
-                        )
+                        "%.2f", it.quote.getValue("USD").price
                     )
                 }$"
-            }
+                rateDateTextView.text = "${R.string.rate_date} ${it.quote.getValue("USD").lastUpdated}"
+            })
         }
     }
 
     private fun convertFromCryptoCurrency() {
-        lifecycleScope.launch {
-            with(cryptoCurrencyTypesSpinner.selectedItem) {
-                try {
-                    currencyInput.setText(
-                        String.format(
-                            "%.2f",
-                            viewModel.convertCryptoCurrency(
-                                cryptoCurrencyInput.text.toString().toDouble(),
-                                this.toString(),
-                                currencyTypesSpinner.selectedItem.toString()
+        with(cryptoCurrencyTypesSpinner.selectedItem) {
+            try {
+                if (cryptoCurrencyInput.text.toString().toDouble() > 0.0) {
+                    viewModel.getConvertedCryptoCurrency(
+                        cryptoCurrencyInput.text.toString().toDouble(),
+                        this.toString()
+                    ).observe(viewLifecycleOwner, {
+                        currencyInput.setText(
+                            String.format(
+                                "%.2f",
+                                it.quote[currencyTypesSpinner.selectedItem.toString()]?.price
                             )
                         )
-                    )
-                } catch (iOException: IOException) {
-                    iOException.printStackTrace()
-                } catch (httpException: HttpException) {
-                    httpException.printStackTrace()
-                } catch (numberFormatException: NumberFormatException) {
-                    numberFormatException.printStackTrace()
-                } catch (noSuchElementException: NoSuchElementException) {
-                    Toast.makeText(
-                        context,
-                        "No rate was found for the ${currencyTypesSpinner.selectedItem} currency",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    noSuchElementException.printStackTrace()
+                    })
                 }
+            } catch (httpException: HttpException) {
+                httpException.printStackTrace()
+            } catch (numberFormatException: NumberFormatException) {
+                numberFormatException.printStackTrace()
+            } catch (noSuchElementException: NoSuchElementException) {
+                Toast.makeText(
+                    context,
+                    "No rate was found for the ${currencyTypesSpinner.selectedItem} currency",
+                    Toast.LENGTH_SHORT
+                ).show()
+                noSuchElementException.printStackTrace()
             }
         }
     }
 
     private fun convertToCryptoCurrency() {
-        lifecycleScope.launch {
-            with(currencyTypesSpinner.selectedItem) {
-                try {
-                    cryptoCurrencyInput.setText(
-                        String.format(
-                            "%.2f",
-                            (currencyInput.text.toString()
-                                .toDouble() / viewModel.convertCryptoCurrency(
-                                1.0,
-                                cryptoCurrencyTypesSpinner.selectedItem.toString(),
-                                this.toString()
-                            ))
-                        )
-                    )
-                } catch (iOException: IOException) {
-                    iOException.printStackTrace()
-                } catch (httpException: HttpException) {
-                    httpException.printStackTrace()
-                } catch (numberFormatException: NumberFormatException) {
-                    numberFormatException.printStackTrace()
-                } catch (noSuchElementException: NoSuchElementException) {
-                    Toast.makeText(
-                        context,
-                        "No rate was found for the ${currencyTypesSpinner.selectedItem} currency",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    noSuchElementException.printStackTrace()
+        with(currencyTypesSpinner.selectedItem) {
+            try {
+                if (currencyInput.text.toString().toDouble() > 0.0) {
+                    viewModel.getConvertedCryptoCurrency(
+                        1.0,
+                        cryptoCurrencyTypesSpinner.selectedItem.toString()
+                    ).observe(viewLifecycleOwner, {
+                        if (currencyInput.text.toString() != "") {
+                            cryptoCurrencyInput.setText(
+                                String.format(
+                                    "%.2f",
+                                    (currencyInput.text.toString()
+                                        .toDouble() / it.quote[this.toString()]?.price!!)
+                                )
+                            )
+                        }
+                    })
                 }
+            } catch (httpException: HttpException) {
+                httpException.printStackTrace()
+            } catch (numberFormatException: NumberFormatException) {
+                numberFormatException.printStackTrace()
+            } catch (noSuchElementException: NoSuchElementException) {
+                Toast.makeText(
+                    context,
+                    "No rate was found for the $this currency",
+                    Toast.LENGTH_SHORT
+                ).show()
+                noSuchElementException.printStackTrace()
             }
         }
     }

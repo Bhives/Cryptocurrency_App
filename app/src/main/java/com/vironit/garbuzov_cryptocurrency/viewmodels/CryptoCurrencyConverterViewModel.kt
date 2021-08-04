@@ -1,22 +1,50 @@
 package com.vironit.garbuzov_cryptocurrency.viewmodels
 
-import android.annotation.SuppressLint
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.vironit.garbuzov_cryptocurrency.data.CryptoCurrencyRepository
+import com.vironit.garbuzov_cryptocurrency.data.entities.ConvertedCryptoCurrency
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CryptoCurrencyConverterViewModel @Inject constructor(var cryptoCurrencyRepository: CryptoCurrencyRepository) :
     ViewModel() {
 
-    suspend fun convertCryptoCurrency(amount: Double, cryptoCurrencySymbol: String, currencySymbol: String): Double {
-        return cryptoCurrencyRepository.getCurrentCryptoCurrency(amount, cryptoCurrencySymbol).quote.getValue(currencySymbol).price
+    fun convertCryptoCurrency(
+        amount: Double,
+        cryptoCurrencySymbol: String,
+        currencySymbol: String
+    ): LiveData<Double> {
+        val result = MutableLiveData<Double>()
+        viewModelScope.launch(Dispatchers.Default) {
+            result.postValue(
+                cryptoCurrencyRepository.getCurrentCryptoCurrency(
+                    amount,
+                    cryptoCurrencySymbol
+                ).quote.getValue(currencySymbol).price
+            )
+        }
+        return result
     }
 
-    @SuppressLint("NewApi")
-    fun getCurrentDate(): String {
-        //return LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-        return ""
+    fun getConvertedCryptoCurrency(
+        amount: Double,
+        cryptoCurrencySymbol: String
+    ): LiveData<ConvertedCryptoCurrency> {
+        val result = MutableLiveData<ConvertedCryptoCurrency>()
+        viewModelScope.launch(Dispatchers.Default) {
+            result.postValue(
+                cryptoCurrencyRepository.getCurrentCryptoCurrency(
+                    amount,
+                    cryptoCurrencySymbol
+                )
+            )
+        }
+        return result
     }
 }

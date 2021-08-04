@@ -100,7 +100,6 @@ class CryptoCurrenciesSearchAdapter (val cryptoCurrenciesSearchViewModel: Crypto
                         }
                     )
                 )
-
                 if (cryptoCurrenciesSearchViewModel.getAllFavoriteCryptoCurrencies().value?.contains(cryptoCurrency) == true) {
                     addToFavoritesButton.isChecked = true
                     cryptoCurrenciesSearchViewModel.updateFavoriteCurrency(cryptoCurrency)

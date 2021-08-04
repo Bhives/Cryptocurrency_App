@@ -15,8 +15,7 @@ import com.vironit.garbuzov_cryptocurrency.viewmodels.FavoriteCryptoCurrenciesVi
 import kotlin.math.roundToInt
 
 class FavoriteCryptoCurrenciesAdapter(
-    val favoriteCryptoCurrenciesViewModel: FavoriteCryptoCurrenciesViewModel,
-    var favoriteCryptoCurrenciesList: List<CryptoCurrency>
+    val favoriteCryptoCurrenciesViewModel: FavoriteCryptoCurrenciesViewModel
 ) :
     ListAdapter<CryptoCurrency, FavoriteCryptoCurrenciesAdapter.FavoriteCryptoCurrenciesHolder>(
         CRYPTO_CURRENCY_COMPARATOR
@@ -34,11 +33,7 @@ class FavoriteCryptoCurrenciesAdapter(
     }
 
     override fun onBindViewHolder(holderFavorite: FavoriteCryptoCurrenciesHolder, position: Int) {
-        holderFavorite.bindCryptoCurrency(favoriteCryptoCurrenciesList[position])
-        //val currentCryptoCurrency = getItem(position)
-        //if (currentCryptoCurrency != null) {
-        //    holderFavorite.bindCryptoCurrency(currentCryptoCurrency)
-        //}
+        holderFavorite.bindCryptoCurrency(getItem(position))
     }
 
     inner class FavoriteCryptoCurrenciesHolder(private val binding: CryptoCurrencyCardBinding) :
@@ -104,11 +99,6 @@ class FavoriteCryptoCurrenciesAdapter(
                         }
                     )
                 )
-                addToFavoritesButton.setOnCheckedChangeListener { _, isChecked ->
-                    if (!isChecked) {
-                        favoriteCryptoCurrenciesViewModel.removeFromFavorites(cryptoCurrency)
-                    }
-                }
             }
         }
     }

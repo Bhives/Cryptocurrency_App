@@ -26,12 +26,12 @@ class FavoriteCryptoCurrenciesFragment :
     }
 
     private fun setAdapter() {
-        favoriteCryptoCurrenciesAdapter = FavoriteCryptoCurrenciesAdapter(viewModel, listOf())
+        favoriteCryptoCurrenciesAdapter = FavoriteCryptoCurrenciesAdapter(viewModel)
         favoriteCryptoCurrenciesRecyclerView.setHasFixedSize(true)
         favoriteCryptoCurrenciesRecyclerView.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         viewModel.getAllFavoriteCryptoCurrencies().observe(viewLifecycleOwner) {
-            favoriteCryptoCurrenciesAdapter.favoriteCryptoCurrenciesList = it
+            favoriteCryptoCurrenciesAdapter.submitList(it)
         }
         favoriteCryptoCurrenciesRecyclerView.adapter = favoriteCryptoCurrenciesAdapter
     }

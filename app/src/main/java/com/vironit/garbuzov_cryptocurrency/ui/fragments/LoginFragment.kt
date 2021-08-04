@@ -66,7 +66,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
                     auth.currentUser
-                    findNavController().navigate(R.id.action_loginFragment_to_cryptoCurrenciesSearchFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_cryptoCurrencyRatesFragment)
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                 }

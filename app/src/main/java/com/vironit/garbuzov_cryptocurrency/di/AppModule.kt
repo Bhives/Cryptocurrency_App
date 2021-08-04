@@ -1,6 +1,9 @@
 package com.vironit.garbuzov_cryptocurrency.di
 
+import android.app.Application
+import androidx.room.Room
 import com.vironit.garbuzov_cryptocurrency.api.CryptoCurrencyApi
+import com.vironit.garbuzov_cryptocurrency.data.database.FavoriteCryptoCurrenciesDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,4 +27,12 @@ object AppModule {
     @Singleton
     fun provideCryptoCurrencyApi(retrofit: Retrofit): CryptoCurrencyApi =
         retrofit.create(CryptoCurrencyApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDatabase(application: Application): FavoriteCryptoCurrenciesDatabase {
+        return Room
+            .databaseBuilder(application, FavoriteCryptoCurrenciesDatabase::class.java, "favorite_crypto_currencies.db")
+            .build()
+    }
 }

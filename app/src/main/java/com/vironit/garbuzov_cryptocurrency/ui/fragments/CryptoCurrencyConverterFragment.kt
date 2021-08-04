@@ -15,6 +15,7 @@ import com.vironit.garbuzov_cryptocurrency.viewmodels.CryptoCurrencyConverterVie
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_crypto_currency_converter.*
 import retrofit2.HttpException
+import java.io.IOException
 
 @AndroidEntryPoint
 class CryptoCurrencyConverterFragment :
@@ -45,9 +46,7 @@ class CryptoCurrencyConverterFragment :
                     id: Long
                 ) {
                     displayCurrencyRate()
-                    if (!currencyInput.hasFocus()) {
                         convertFromCryptoCurrency()
-                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -69,9 +68,7 @@ class CryptoCurrencyConverterFragment :
                     position: Int,
                     id: Long
                 ) {
-                    if (!cryptoCurrencyInput.hasFocus()) {
                         convertToCryptoCurrency()
-                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -97,9 +94,15 @@ class CryptoCurrencyConverterFragment :
                         )
                     }$"
                     rateDateTextView.text =
-                        "${R.string.rate_date} ${currentCryptoCurrency.quote.getValue("USD").lastUpdated}"
+                        "${requireContext().resources.getString(R.string.rate_date)} ${
+                            currentCryptoCurrency.quote.getValue(
+                                "USD"
+                            ).lastUpdated
+                        }"
                 })
             }
+        } catch (iOException: IOException) {
+            iOException.printStackTrace()
         } catch (httpException: HttpException) {
             httpException.printStackTrace()
         }
@@ -112,7 +115,8 @@ class CryptoCurrencyConverterFragment :
                     currencyInput.setText(
                         String.format(
                             "%.2f",
-                            currentCryptoCurrency.quote[this.toString()]?.price!! * cryptoCurrencyInput.text.toString().toDouble()
+                            currentCryptoCurrency.quote[this.toString()]?.price!! * cryptoCurrencyInput.text.toString()
+                                .toDouble()
                         )
                     )
                 }

@@ -9,7 +9,7 @@
         android:id="@+id/splashScreenFragment"
         android:name="com.vironit.garbuzov_cryptocurrency.ui.fragments.SplashScreenFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreenFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -19,22 +19,19 @@
         android:id="@+id/loginFragment"
         android:name="com.vironit.garbuzov_cryptocurrency.ui.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_cryptoCurrenciesSearchFragment"
-            app:destination="@id/cryptoCurrenciesSearchFragment" />
+            android:id="@+id/action_loginFragment_to_cryptoCurrencyRatesFragment"
+            app:destination="@id/cryptoCurrencyRatesFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/cryptoCurrenciesSearchFragment"
-        android:name="com.vironit.garbuzov_cryptocurrency.ui.fragments.CryptoCurrenciesSearchFragment"
-        android:label="fragment_crypto_currencies_search"
-        tools:layout="@layout/fragment_crypto_currencies_search" >
+        android:id="@+id/cryptoCurrencyRatesFragment"
+        android:name="com.vironit.garbuzov_cryptocurrency.ui.fragments.CryptoCurrencyRatesFragment"
+        android:label="fragment_crypto_currency_rates"
+        tools:layout="@layout/fragment_crypto_currency_rates">
         <action
-            android:id="@+id/action_cryptoCurrenciesSearchFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_cryptoCurrenciesSearchFragment_to_cryptoCurrencyConverterFragment"
+            android:id="@+id/action_cryptoCurrencyRatesFragment_to_cryptoCurrencyConverterFragment"
             app:destination="@id/cryptoCurrencyConverterFragment" />
     </fragment>
 
@@ -42,9 +39,9 @@
         android:id="@+id/cryptoCurrencyConverterFragment"
         android:name="com.vironit.garbuzov_cryptocurrency.ui.fragments.CryptoCurrencyConverterFragment"
         android:label="fragment_crypto_currency_converter"
-        tools:layout="@layout/fragment_crypto_currency_converter" >
+        tools:layout="@layout/fragment_crypto_currency_converter">
         <action
-            android:id="@+id/action_cryptoCurrencyConverterFragment_to_cryptoCurrenciesSearchFragment"
-            app:destination="@id/cryptoCurrenciesSearchFragment" />
+            android:id="@+id/action_cryptoCurrencyConverterFragment_to_cryptoCurrencyRatesFragment"
+            app:destination="@id/cryptoCurrencyRatesFragment" />
     </fragment>
 </navigation>

@@ -26,7 +26,6 @@ data class CryptoCurrency(
     @SerializedName("tags") @Expose val tags: List<String>,
     @SerializedName("platform") @Expose val platform: Platform,
     @SerializedName("quote") @Expose val quote: Map<String, Quote>,
-    //@SerializedName("amount") @Expose val amount: Double
 ) : Parcelable {
     @Parcelize
     data class Platform(

@@ -2,7 +2,5 @@
 <resources>
     <string-array name="currency_types_array">
         <item>USD</item>
-        <item>EUR</item>
-        <item>BYN</item>
     </string-array>
 </resources>

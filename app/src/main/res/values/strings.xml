@@ -12,4 +12,10 @@
     <string name="rate_date">Currency rate date: </string>
     <string name="from">From</string>
     <string name="to">To</string>
+
+    <string name="notify_condition_higher">Notify me if the price is above:</string>
+    <string name="notify_condition_lower">Or if the price is below:</string>
+    <string name="price">Price</string>
+    <string name="percent">Percent</string>
+    <string name="save">Save</string>
 </resources>

@@ -6,6 +6,7 @@ import com.vironit.garbuzov_cryptocurrency.data.entities.CryptoCurrency
 
 @Dao
 interface FavoriteCryptoCurrencyDao {
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertToFavorites(cryptoCurrency: CryptoCurrency)
 

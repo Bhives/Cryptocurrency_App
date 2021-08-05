@@ -9,7 +9,7 @@ import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.databinding.FragmentCryptoCurrenciesSearchBinding
 import com.vironit.garbuzov_cryptocurrency.ui.adapters.CryptoCurrenciesSearchAdapter
 import com.vironit.garbuzov_cryptocurrency.ui.templates.BaseFragment
-import com.vironit.garbuzov_cryptocurrency.viewmodels.CryptoCurrenciesSearchViewModel
+import com.vironit.garbuzov_cryptocurrency.viewmodels.cryptocurrency_rates.CryptoCurrenciesSearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_crypto_currencies_search.*
 

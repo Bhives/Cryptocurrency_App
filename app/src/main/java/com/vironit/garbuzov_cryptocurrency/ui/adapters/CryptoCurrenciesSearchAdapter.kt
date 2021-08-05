@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.vironit.garbuzov_cryptocurrency.data.entities.CryptoCurrency
 import com.vironit.garbuzov_cryptocurrency.databinding.CryptoCurrencyCardBinding
-import com.vironit.garbuzov_cryptocurrency.viewmodels.CryptoCurrenciesSearchViewModel
+import com.vironit.garbuzov_cryptocurrency.viewmodels.cryptocurrency_rates.CryptoCurrenciesSearchViewModel
 import kotlin.math.roundToInt
 
 class CryptoCurrenciesSearchAdapter (val cryptoCurrenciesSearchViewModel: CryptoCurrenciesSearchViewModel) :

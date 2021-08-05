@@ -18,4 +18,7 @@
     <string name="price">Price</string>
     <string name="percent">Percent</string>
     <string name="save">Save</string>
+    <string name="channel_description">Sample description</string>
+    <string name="message_stonks"> rate is rising!</string>
+    <string name="message_destonks"> rate is lowering!</string>
 </resources>

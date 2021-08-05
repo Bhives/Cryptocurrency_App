@@ -62,5 +62,18 @@
         <action
             android:id="@+id/action_notificationsFragment_to_cryptoCurrencyConverterFragment"
             app:destination="@id/cryptoCurrencyConverterFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_addNotificationFragment"
+            app:destination="@id/addNotificationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addNotificationFragment"
+        android:name="com.vironit.garbuzov_cryptocurrency.ui.fragments.notifications.AddNotificationFragment"
+        android:label="fragment_add_notification"
+        tools:layout="@layout/fragment_add_notification">
+        <action
+            android:id="@+id/action_addNotificationFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
     </fragment>
 </navigation>

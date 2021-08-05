@@ -9,7 +9,7 @@ import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.databinding.FragmentFavoriteCryptoCurrenciesBinding
 import com.vironit.garbuzov_cryptocurrency.ui.adapters.FavoriteCryptoCurrenciesAdapter
 import com.vironit.garbuzov_cryptocurrency.ui.templates.BaseFragment
-import com.vironit.garbuzov_cryptocurrency.viewmodels.FavoriteCryptoCurrenciesViewModel
+import com.vironit.garbuzov_cryptocurrency.viewmodels.cryptocurrency_rates.FavoriteCryptoCurrenciesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_favorite_crypto_currencies.*
 

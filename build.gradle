@@ -8,6 +8,7 @@ buildscript {
         hiltAndroidXVersion = '1.0.0-alpha02'
         paging_version = "2.1.2"
         navigationVersion = '2.3.0'
+        core_version = "1.6.0"
     }
     repositories {
         google()
@@ -29,7 +30,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
 

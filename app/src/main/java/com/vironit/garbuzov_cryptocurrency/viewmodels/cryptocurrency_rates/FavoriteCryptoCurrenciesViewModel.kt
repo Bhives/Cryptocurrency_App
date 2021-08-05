@@ -1,4 +1,4 @@
-package com.vironit.garbuzov_cryptocurrency.viewmodels
+package com.vironit.garbuzov_cryptocurrency.viewmodels.cryptocurrency_rates
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

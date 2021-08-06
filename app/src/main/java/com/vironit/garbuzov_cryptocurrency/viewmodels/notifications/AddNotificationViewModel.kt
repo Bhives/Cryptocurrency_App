@@ -39,12 +39,20 @@ class AddNotificationViewModel @Inject constructor(var cryptoCurrencyRepository:
         return result
     }
 
-    fun createNotification(context: Context, notificationName: String, percent: Double, currencySymbol: String, setSound: Boolean, setVibration: Boolean){
+    fun createNotification(
+        context: Context,
+        notificationName: String,
+        requiredPercent: Double,
+        currencySymbol: String,
+        setVibration: Boolean,
+        directionFlag: Int
+    ){
         val serviceIntent = Intent(context, notificationService)
         serviceIntent.putExtra("notificationName", notificationName)
-        serviceIntent.putExtra("percent", percent)
+        serviceIntent.putExtra("requiredPercent", requiredPercent)
         serviceIntent.putExtra("currencySymbol", currencySymbol)
         serviceIntent.putExtra("setVibration", setVibration)
+        serviceIntent.putExtra("directionFlag", directionFlag)
         context.startService(serviceIntent)
     }
 

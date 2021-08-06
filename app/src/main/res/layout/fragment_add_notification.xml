@@ -56,6 +56,7 @@
             android:id="@+id/rateValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/currencyTypesSpinner"
             app:layout_constraintTop_toBottomOf="@id/toTextView" />
 
@@ -83,7 +84,8 @@
                 android:layout_marginEnd="@dimen/card_margin_from_card"
                 android:layout_marginRight="@dimen/card_margin_from_card"
                 android:layout_weight="2"
-                android:hint="@string/price" />
+                android:hint="@string/price"
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/percentHigherEditText"
@@ -92,7 +94,14 @@
                 android:layout_marginStart="@dimen/card_margin_from_card"
                 android:layout_marginLeft="@dimen/card_margin_from_card"
                 android:layout_weight="1"
-                android:hint="@string/percent" />
+                android:hint="@string/percent"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/higherPercentIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="%"/>
         </LinearLayout>
 
         <TextView
@@ -113,13 +122,14 @@
             app:layout_constraintTop_toBottomOf="@id/priceLowerTextView">
 
             <EditText
-                android:id="@+id/priceLowerrEditText"
+                android:id="@+id/priceLowerEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/card_margin_from_card"
                 android:layout_marginRight="@dimen/card_margin_from_card"
                 android:layout_weight="2"
-                android:hint="@string/price" />
+                android:hint="@string/price"
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/percentLowerEditText"
@@ -128,18 +138,25 @@
                 android:layout_marginStart="@dimen/card_margin_from_card"
                 android:layout_marginLeft="@dimen/card_margin_from_card"
                 android:layout_weight="1"
-                android:hint="@string/percent" />
+                android:hint="@string/percent"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/lowerPercentIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="%"/>
         </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/lowerLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:backgroundTint="@color/red"
             android:text="@string/save"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lowerLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

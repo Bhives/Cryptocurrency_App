@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.vironit.garbuzov_cryptocurrency">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -23,7 +24,8 @@
         <service
             android:name=".api.services.NotificationService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            tools:ignore="Instantiatable" />
 
         <activity android:name=".ui.MainActivity">
             <intent-filter>

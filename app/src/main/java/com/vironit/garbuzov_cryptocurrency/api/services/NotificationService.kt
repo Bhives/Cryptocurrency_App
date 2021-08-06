@@ -9,6 +9,8 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.provider.Settings
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.utils.NotificationTemplate
 import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.AddNotificationViewModel
@@ -29,38 +31,91 @@ class NotificationService @Inject constructor(private val addNotificationViewMod
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         mHandler = Handler()
         mRunnable = Runnable {
-            serverRequest(
-                intent.getStringExtra("notificationName")!!,
-                intent.getDoubleExtra("percent", 0.0),
-                intent.getStringExtra("currencySymbol")!!,
-                intent.getBooleanExtra("setVibration", false)
-            )
+            when {
+                intent.getIntExtra("directionFlag", 0) == 0 -> {
+                    processPriceRising(
+                        intent.getStringExtra("notificationName")!!,
+                        intent.getDoubleExtra("requiredPercent", 0.0),
+                        intent.getStringExtra("currencySymbol")!!,
+                        intent.getBooleanExtra("setVibration", false)
+                    )
+                }
+                intent.getIntExtra("directionFlag", 0) == 1 -> {
+                    processPriceLowering(
+                        intent.getStringExtra("notificationName")!!,
+                        intent.getDoubleExtra("requiredPercent", 0.0),
+                        intent.getStringExtra("currencySymbol")!!,
+                        intent.getBooleanExtra("setVibration", false)
+                    )
+                }
+            }
         }
         mHandler.postDelayed(mRunnable, 1000)
         return START_STICKY
     }
 
-    private fun serverRequest(
+    private fun processPriceRising(
         notificationName: String,
-        percent: Double,
+        requiredPercent: Double,
         currencySymbol: String,
         setVibration: Boolean
     ) {
-        val newValue = addNotificationViewModel.getConvertedCryptoCurrency(1.0, currencySymbol).value?.amount!!
-        if ((currentValue/100){
-            TODO("Continue from here!")
-            }
-        createNotification(notificationName, percent, currencySymbol, setVibration)
+        val newValue = serverRequest(currencySymbol)
+        if (currentValue == 0.0){
+            currentValue = newValue
+        }
+        val stonksPercent = (newValue - currentValue) / 100
+        if (stonksPercent >= requiredPercent) {
+            createNotification(
+                notificationName,
+                requiredPercent,
+                currencySymbol,
+                setVibration,
+                true
+            )
+        }
+        currentValue = newValue
+    }
+
+    private fun processPriceLowering(
+        notificationName: String,
+        requiredPercent: Double,
+        currencySymbol: String,
+        setVibration: Boolean
+    ) {
+        val newValue = serverRequest(currencySymbol)
+        if (currentValue == 0.0){
+            currentValue = newValue
+        }
+        val destonksPercent = (currentValue - newValue) / 100
+        if (destonksPercent >= requiredPercent) {
+            createNotification(
+                notificationName,
+                destonksPercent,
+                currencySymbol,
+                setVibration,
+                false
+            )
+        }
+        currentValue = newValue
+    }
+
+    private fun serverRequest(currencySymbol: String): Double {
+        return addNotificationViewModel.getConvertedCryptoCurrency(
+            1.0,
+            currencySymbol
+        ).value?.amount!!
     }
 
     private fun createNotification(
         notificationName: String,
-        percent: Double,
+        receivedPercent: Double,
         currencySymbol: String,
-        setVibration: Boolean
+        setVibration: Boolean,
+        stonks: Boolean
     ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val descriptionText = R.string.channel_description.toString()
+            val descriptionText = Firebase.auth.currentUser?.displayName
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(CHANNEL_ID, notificationName, importance).apply {
                 description = descriptionText
@@ -76,10 +131,16 @@ class NotificationService @Inject constructor(private val addNotificationViewMod
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+        var notificationTitle = ""
+        notificationTitle = if (stonks) {
+            "$currencySymbol ${this.resources.getString(R.string.message_stonks)}"
+        } else {
+            "$currencySymbol ${this.resources.getString(R.string.message_destonks)}"
+        }
         NotificationTemplate().initializeBuilder(
             this,
-            "$currencySymbol ${this.resources.getString(R.string.message_stonks)}",
-            "$percent"
+            notificationTitle,
+            "$receivedPercent"
         )
     }
 

@@ -21,7 +21,7 @@ const val NOTIFICATION_ID = 101
 class AddNotificationViewModel @Inject constructor(var cryptoCurrencyRepository: CryptoCurrencyRepository) :
     ViewModel() {
 
-    private val notificationService = NotificationService::class.java
+    private val notificationService = NotificationService(cryptoCurrencyRepository)::class.java
 
     fun getConvertedCryptoCurrency(
         amount: Double,

@@ -12,10 +12,13 @@ import android.provider.Settings
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.R
+import com.vironit.garbuzov_cryptocurrency.data.CryptoCurrencyRepository
 import com.vironit.garbuzov_cryptocurrency.utils.NotificationTemplate
 import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.CHANNEL_ID
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class NotificationService :
+class NotificationService(var cryptoCurrencyRepository: CryptoCurrencyRepository) :
     Service() {
 
     private lateinit var mHandler: Handler
@@ -99,10 +102,15 @@ class NotificationService :
     }
 
     private fun serverRequest(currencySymbol: String): Double {
-        return addNotificationViewModel.getConvertedCryptoCurrency(
-            1.0,
-            currencySymbol
-        ).value?.amount!!
+        var result = 0.0
+        GlobalScope.launch {
+            result =
+                cryptoCurrencyRepository.getCurrentCryptoCurrency(
+                    1.0,
+                    currencySymbol
+                ).amount
+        }
+        return result
     }
 
     private fun createNotification(

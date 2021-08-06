@@ -7,12 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#d81b60</color>
+    <color name="red_app_color">#b71c1c</color>
     <color name="rating_star_color">#ffc922</color>
     <color name="light_grey">#d3d3d3</color>
-    <color name="light_blue_app_color">#03a9f4</color>
     <color name="primary_yellow">#fff59d</color>
     <color name="background_yellow">#fff54D</color>
     <color name="dark_blue_app_color">#FF01579B</color>
     <color name="call_green">#4caf50</color>
+    <color name="error_red">#f44336</color>
 </resources>

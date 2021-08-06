@@ -13,11 +13,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.utils.NotificationTemplate
-import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.AddNotificationViewModel
 import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.CHANNEL_ID
-import javax.inject.Inject
 
-class NotificationService @Inject constructor(private val addNotificationViewModel: AddNotificationViewModel) :
+class NotificationService :
     Service() {
 
     private lateinit var mHandler: Handler
@@ -32,7 +30,7 @@ class NotificationService @Inject constructor(private val addNotificationViewMod
         mHandler = Handler()
         mRunnable = Runnable {
             when {
-                intent.getIntExtra("directionFlag", 0) == 0 -> {
+                intent.getIntExtra("stonksFlag", 0) == 1 -> {
                     processPriceRising(
                         intent.getStringExtra("notificationName")!!,
                         intent.getDoubleExtra("requiredPercent", 0.0),
@@ -40,7 +38,7 @@ class NotificationService @Inject constructor(private val addNotificationViewMod
                         intent.getBooleanExtra("setVibration", false)
                     )
                 }
-                intent.getIntExtra("directionFlag", 0) == 1 -> {
+                intent.getIntExtra("stonksFlag", 0) == 0 -> {
                     processPriceLowering(
                         intent.getStringExtra("notificationName")!!,
                         intent.getDoubleExtra("requiredPercent", 0.0),
@@ -61,7 +59,7 @@ class NotificationService @Inject constructor(private val addNotificationViewMod
         setVibration: Boolean
     ) {
         val newValue = serverRequest(currencySymbol)
-        if (currentValue == 0.0){
+        if (currentValue == 0.0) {
             currentValue = newValue
         }
         val stonksPercent = (newValue - currentValue) / 100
@@ -84,7 +82,7 @@ class NotificationService @Inject constructor(private val addNotificationViewMod
         setVibration: Boolean
     ) {
         val newValue = serverRequest(currencySymbol)
-        if (currentValue == 0.0){
+        if (currentValue == 0.0) {
             currentValue = newValue
         }
         val destonksPercent = (currentValue - newValue) / 100
@@ -122,7 +120,7 @@ class NotificationService @Inject constructor(private val addNotificationViewMod
             }
             with(channel) {
                 enableLights(true)
-                lightColor = R.color.red
+                lightColor = R.color.red_app_color
                 enableVibration(setVibration)
                 vibrationPattern = longArrayOf(200, 200, 200, 200)
                 setSound(Settings.System.DEFAULT_NOTIFICATION_URI, null)

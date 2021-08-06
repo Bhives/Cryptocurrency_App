@@ -16,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_crypto_currency_converter.*
 import retrofit2.HttpException
 import java.io.IOException
-import java.net.UnknownHostException
 
 @AndroidEntryPoint
 class CryptoCurrencyConverterFragment :
@@ -31,10 +30,10 @@ class CryptoCurrencyConverterFragment :
         super.onViewCreated(view, savedInstanceState)
         displayCurrencyRate()
         cryptoCurrencyInput.addTextChangedListener {
-                if (cryptoCurrencyInput.text.isEmpty()) {
-                    currencyInput.text.clear()
-                }
-                convertFromCryptoCurrency()
+            if (cryptoCurrencyInput.text.isEmpty()) {
+                currencyInput.text.clear()
+            }
+            convertFromCryptoCurrency()
         }
         cryptoCurrencyTypesSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -52,10 +51,10 @@ class CryptoCurrencyConverterFragment :
                 }
             }
         currencyInput.addTextChangedListener {
-                if (currencyInput.text.isEmpty()) {
-                    cryptoCurrencyInput.text.clear()
-                }
-                convertToCryptoCurrency()
+            if (currencyInput.text.isEmpty()) {
+                cryptoCurrencyInput.text.clear()
+            }
+            convertToCryptoCurrency()
         }
         currencyTypesSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {

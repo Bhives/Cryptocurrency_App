@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.data.entities.ConvertedCryptoCurrency
 import com.vironit.garbuzov_cryptocurrency.databinding.FragmentAddNotificationBinding
@@ -18,6 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_notification.*
 import retrofit2.HttpException
 import java.io.IOException
+import java.util.*
+import kotlin.NoSuchElementException
 
 @AndroidEntryPoint
 class AddNotificationFragment :
@@ -102,6 +105,10 @@ class AddNotificationFragment :
             priceHigherEditText.text.clear()
             percentHigherEditText.text.clear()
         }
+
+        createNotificationButton.setOnClickListener {
+            addNotification()
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -145,6 +152,7 @@ class AddNotificationFragment :
                     if (newCryptoCurrencyValue > currentCryptoCurrencyValue) {
                         percentHigherEditText.setText(
                             String.format(
+                                Locale.ENGLISH,
                                 "%.2f",
                                 (newCryptoCurrencyValue - currentCryptoCurrencyValue) / currentCryptoCurrencyValue * 100
                             )
@@ -201,6 +209,7 @@ class AddNotificationFragment :
                     if (newCryptoCurrencyValue < currentCryptoCurrencyValue) {
                         percentLowerEditText.setText(
                             String.format(
+                                Locale.ENGLISH,
                                 "%.2f",
                                 (currentCryptoCurrencyValue - newCryptoCurrencyValue) / currentCryptoCurrencyValue * 100
                             )
@@ -247,8 +256,36 @@ class AddNotificationFragment :
         }
     }
 
+    @SuppressLint("NewApi")
     fun addNotification() {
-
+        when {
+            percentHigherEditText.text.isNullOrEmpty() && percentLowerEditText.text.isNullOrEmpty() -> {
+                percentHigherEditText.highlightColor = requireContext().getColor(R.color.error_red)
+                percentLowerEditText.highlightColor = requireContext().getColor(R.color.error_red)
+            }
+            !percentHigherEditText.text.isNullOrEmpty() -> {
+                viewModel.createNotification(
+                    requireContext(),
+                    "${currentCryptoCurrency.symbol}, +${percentHigherEditText.text}%",
+                    percentHigherEditText.text.toString().toDouble(),
+                    currentCryptoCurrency.symbol.toString(),
+                    false,
+                    1
+                )
+                findNavController().navigate(AddNotificationFragmentDirections.actionAddNotificationFragmentToNotificationsFragment())
+            }
+            !percentLowerEditText.text.isNullOrEmpty() -> {
+                viewModel.createNotification(
+                    requireContext(),
+                    "${currentCryptoCurrency.symbol}, +${percentLowerEditText.text}%",
+                    percentLowerEditText.text.toString().toDouble(),
+                    currentCryptoCurrency.symbol.toString(),
+                    false,
+                    0
+                )
+                findNavController().navigate(AddNotificationFragmentDirections.actionAddNotificationFragmentToNotificationsFragment())
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -256,6 +293,3 @@ class AddNotificationFragment :
         bindingActivity.bottomNavigationMenu.isVisible = true
     }
 }
-
-//50000 - 40000 = +25%
-//

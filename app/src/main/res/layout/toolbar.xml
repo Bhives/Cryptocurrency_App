@@ -7,7 +7,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/red"
+        android:background="@color/red_app_color"
         app:popupTheme="@style/Theme.AppCompat.DayNight"
         app:title="@string/app_name" />
 

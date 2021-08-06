@@ -35,7 +35,7 @@
         android:layout_marginEnd="@dimen/default_border_margin"
         android:layout_marginRight="@dimen/default_border_margin"
         android:layout_marginBottom="@dimen/default_border_margin"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/red_app_color"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

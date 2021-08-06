@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-const val CHANNEL_ID: String="CHANNEL_ID"
+const val CHANNEL_ID: String = "CHANNEL_ID"
 const val NOTIFICATION_ID = 101
 
 @HiltViewModel
@@ -45,14 +45,14 @@ class AddNotificationViewModel @Inject constructor(var cryptoCurrencyRepository:
         requiredPercent: Double,
         currencySymbol: String,
         setVibration: Boolean,
-        directionFlag: Int
-    ){
+        stonksFlag: Int
+    ) {
         val serviceIntent = Intent(context, notificationService)
         serviceIntent.putExtra("notificationName", notificationName)
         serviceIntent.putExtra("requiredPercent", requiredPercent)
         serviceIntent.putExtra("currencySymbol", currencySymbol)
         serviceIntent.putExtra("setVibration", setVibration)
-        serviceIntent.putExtra("directionFlag", directionFlag)
+        serviceIntent.putExtra("stonksFlag", stonksFlag)
         context.startService(serviceIntent)
     }
 

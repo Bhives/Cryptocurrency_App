@@ -13,22 +13,30 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.data.CryptoCurrencyRepository
+import com.vironit.garbuzov_cryptocurrency.utils.NotificationServiceRequest
 import com.vironit.garbuzov_cryptocurrency.utils.NotificationTemplate
 import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.CHANNEL_ID
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class NotificationService(var cryptoCurrencyRepository: CryptoCurrencyRepository) :
+class NotificationService() :
     Service() {
 
     private lateinit var mHandler: Handler
     private lateinit var mRunnable: Runnable
     var currentValue = 0.0
+    lateinit var cryptoCurrencyRepository: CryptoCurrencyRepository
+
+    constructor(cryptoCurrencyRepository: CryptoCurrencyRepository) : this() {
+        this.cryptoCurrencyRepository = cryptoCurrencyRepository
+    }
 
     override fun onBind(intent: Intent): IBinder? {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
+    @DelicateCoroutinesApi
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         mHandler = Handler()
         mRunnable = Runnable {
@@ -51,10 +59,11 @@ class NotificationService(var cryptoCurrencyRepository: CryptoCurrencyRepository
                 }
             }
         }
-        mHandler.postDelayed(mRunnable, 1000)
+        mHandler.postDelayed(mRunnable, 5000)
         return START_STICKY
     }
 
+    @DelicateCoroutinesApi
     private fun processPriceRising(
         notificationName: String,
         requiredPercent: Double,
@@ -78,6 +87,7 @@ class NotificationService(var cryptoCurrencyRepository: CryptoCurrencyRepository
         currentValue = newValue
     }
 
+    @DelicateCoroutinesApi
     private fun processPriceLowering(
         notificationName: String,
         requiredPercent: Double,
@@ -101,14 +111,14 @@ class NotificationService(var cryptoCurrencyRepository: CryptoCurrencyRepository
         currentValue = newValue
     }
 
+    @DelicateCoroutinesApi
     private fun serverRequest(currencySymbol: String): Double {
         var result = 0.0
         GlobalScope.launch {
             result =
-                cryptoCurrencyRepository.getCurrentCryptoCurrency(
-                    1.0,
+                NotificationServiceRequest().serverRequest(
                     currencySymbol
-                ).amount
+                )
         }
         return result
     }

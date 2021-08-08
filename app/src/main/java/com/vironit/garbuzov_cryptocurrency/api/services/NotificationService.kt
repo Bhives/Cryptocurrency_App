@@ -1,8 +1,6 @@
 package com.vironit.garbuzov_cryptocurrency.api.services
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.Service
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,13 +10,13 @@ import android.provider.Settings
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.R
-import com.vironit.garbuzov_cryptocurrency.data.CryptoCurrencyRepository
 import com.vironit.garbuzov_cryptocurrency.utils.NotificationServiceRequest
 import com.vironit.garbuzov_cryptocurrency.utils.NotificationTemplate
 import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.CHANNEL_ID
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 class NotificationService() :
     Service() {
@@ -26,44 +24,40 @@ class NotificationService() :
     private lateinit var mHandler: Handler
     private lateinit var mRunnable: Runnable
     var currentValue = 0.0
-    lateinit var cryptoCurrencyRepository: CryptoCurrencyRepository
-
-    constructor(cryptoCurrencyRepository: CryptoCurrencyRepository) : this() {
-        this.cryptoCurrencyRepository = cryptoCurrencyRepository
-    }
 
     override fun onBind(intent: Intent): IBinder? {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
-    @DelicateCoroutinesApi
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        mHandler = Handler()
-        mRunnable = Runnable {
-            when {
-                intent.getIntExtra("stonksFlag", 0) == 1 -> {
-                    processPriceRising(
-                        intent.getStringExtra("notificationName")!!,
-                        intent.getDoubleExtra("requiredPercent", 0.0),
-                        intent.getStringExtra("currencySymbol")!!,
-                        intent.getBooleanExtra("setVibration", false)
-                    )
-                }
-                intent.getIntExtra("stonksFlag", 0) == 0 -> {
-                    processPriceLowering(
-                        intent.getStringExtra("notificationName")!!,
-                        intent.getDoubleExtra("requiredPercent", 0.0),
-                        intent.getStringExtra("currencySymbol")!!,
-                        intent.getBooleanExtra("setVibration", false)
-                    )
-                }
+        val pendingIntent = PendingIntent.getService(this, 0, intent, flags)
+        val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis()
+        calendar.add(Calendar.SECOND, 5)
+        alarmManager.set(AlarmManager.RTC, calendar.timeInMillis, pendingIntent)
+        when {
+            intent.getIntExtra("stonksFlag", 0) == 1 -> {
+                processPriceRising(
+                    intent.getStringExtra("notificationName")!!,
+                    intent.getDoubleExtra("requiredPercent", 0.0),
+                    intent.getStringExtra("currencySymbol")!!,
+                    intent.getBooleanExtra("setVibration", false)
+                )
+            }
+            intent.getIntExtra("stonksFlag", 0) == 0 -> {
+                processPriceLowering(
+                    intent.getStringExtra("notificationName")!!,
+                    intent.getDoubleExtra("requiredPercent", 0.0),
+                    intent.getStringExtra("currencySymbol")!!,
+                    intent.getBooleanExtra("setVibration", false)
+                )
             }
         }
-        mHandler.postDelayed(mRunnable, 5000)
         return START_STICKY
     }
 
-    @DelicateCoroutinesApi
+
     private fun processPriceRising(
         notificationName: String,
         requiredPercent: Double,
@@ -76,18 +70,17 @@ class NotificationService() :
         }
         val stonksPercent = (newValue - currentValue) / 100
         if (stonksPercent >= requiredPercent) {
-            createNotification(
-                notificationName,
-                requiredPercent,
-                currencySymbol,
-                setVibration,
-                true
-            )
+        createNotification(
+            notificationName,
+            14.88,
+            currencySymbol,
+            setVibration,
+            true
+        )
         }
         currentValue = newValue
     }
 
-    @DelicateCoroutinesApi
     private fun processPriceLowering(
         notificationName: String,
         requiredPercent: Double,
@@ -114,11 +107,15 @@ class NotificationService() :
     @DelicateCoroutinesApi
     private fun serverRequest(currencySymbol: String): Double {
         var result = 0.0
-        GlobalScope.launch {
-            result =
-                NotificationServiceRequest().serverRequest(
-                    currencySymbol
-                )
+        try {
+            GlobalScope.launch {
+                result =
+                    NotificationServiceRequest().serverRequest(
+                        currencySymbol
+                    )
+            }
+        } catch (nullPointerException: NullPointerException) {
+            nullPointerException.printStackTrace()
         }
         return result
     }

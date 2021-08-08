@@ -27,7 +27,7 @@ class AddNotificationViewModel @Inject constructor(
     var cryptoCurrencyRepository: CryptoCurrencyRepository, application: Application
 ) : AndroidViewModel(application) {
 
-    val notificationService = NotificationService(cryptoCurrencyRepository)::class.java
+    val notificationService = NotificationService::class.java
 
     fun getConvertedCryptoCurrency(
         amount: Double,

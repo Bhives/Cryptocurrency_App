@@ -53,6 +53,9 @@
             app:exitAnim="@anim/fragment_slide_out"
             app:popEnterAnim="@anim/fragment_slide_in"
             app:popExitAnim="@anim/fragment_slide_out" />
+        <action
+            android:id="@+id/action_cryptoCurrencyConverterFragment_to_cryptoCurrenciesSearchFragment2"
+            app:destination="@id/cryptoCurrenciesSearchFragment" />
     </fragment>
 
     <fragment
@@ -74,6 +77,9 @@
             app:exitAnim="@anim/fragment_slide_out"
             app:popEnterAnim="@anim/fragment_slide_in"
             app:popExitAnim="@anim/fragment_slide_out" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_cryptoCurrenciesSearchFragment"
+            app:destination="@id/cryptoCurrenciesSearchFragment" />
     </fragment>
 
     <fragment
@@ -109,5 +115,8 @@
             app:exitAnim="@anim/fragment_slide_out"
             app:popEnterAnim="@anim/fragment_slide_in"
             app:popExitAnim="@anim/fragment_slide_out" />
+        <action
+            android:id="@+id/action_cryptoCurrenciesSearchFragment_to_cryptoCurrencyConverterFragment"
+            app:destination="@id/cryptoCurrencyConverterFragment" />
     </fragment>
 </navigation>

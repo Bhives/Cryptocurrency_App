@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -22,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_add_notification.*
 import retrofit2.HttpException
 import java.io.IOException
 import java.util.*
-import kotlin.NoSuchElementException
 
 @AndroidEntryPoint
 class AddNotificationFragment :
@@ -35,6 +35,14 @@ class AddNotificationFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindingActivity.bottomNavigationMenu.isVisible = false
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+            }
+        )
         cryptoCurrencyTypesSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -53,7 +61,6 @@ class AddNotificationFragment :
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
-
         currencyTypesSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -72,8 +79,8 @@ class AddNotificationFragment :
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
-
-        priceHigherEditText.addTextChangedListener {
+        priceHigherEditText.addTextChangedListener()
+        {
             if (priceHigherEditText.text.isEmpty()) {
                 percentHigherEditText.text.clear()
             }
@@ -81,8 +88,8 @@ class AddNotificationFragment :
             priceLowerEditText.text.clear()
             percentLowerEditText.text.clear()
         }
-
-        percentHigherEditText.addTextChangedListener {
+        percentHigherEditText.addTextChangedListener()
+        {
             if (percentHigherEditText.text.isEmpty()) {
                 priceHigherEditText.text.clear()
             }
@@ -90,8 +97,8 @@ class AddNotificationFragment :
             priceLowerEditText.text.clear()
             percentLowerEditText.text.clear()
         }
-
-        priceLowerEditText.addTextChangedListener {
+        priceLowerEditText.addTextChangedListener()
+        {
             if (priceLowerEditText.text.isEmpty()) {
                 percentLowerEditText.text.clear()
             }
@@ -99,8 +106,8 @@ class AddNotificationFragment :
             priceHigherEditText.text.clear()
             percentHigherEditText.text.clear()
         }
-
-        percentLowerEditText.addTextChangedListener {
+        percentLowerEditText.addTextChangedListener()
+        {
             if (percentLowerEditText.text.isEmpty()) {
                 priceLowerEditText.text.clear()
             }
@@ -108,8 +115,8 @@ class AddNotificationFragment :
             priceHigherEditText.text.clear()
             percentHigherEditText.text.clear()
         }
-
-        createNotificationButton.setOnClickListener {
+        createNotificationButton.setOnClickListener()
+        {
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(
@@ -118,7 +125,6 @@ class AddNotificationFragment :
                 ),
                 100
             )
-
             addNotification()
         }
     }

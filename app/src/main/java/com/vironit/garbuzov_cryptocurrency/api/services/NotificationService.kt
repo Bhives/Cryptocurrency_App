@@ -164,8 +164,4 @@ class NotificationService() :
             notificationText
         )
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }

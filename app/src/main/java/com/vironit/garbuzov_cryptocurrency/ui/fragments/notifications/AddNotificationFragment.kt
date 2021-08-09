@@ -144,116 +144,86 @@ class AddNotificationFragment :
     }
 
     private fun calculateRisingPercent() {
-        with(currencyTypesSpinner.selectedItem) {
-            try {
-                if (priceHigherEditText.text.toString().toDouble() > 0.0) {
-                    val currentCryptoCurrencyValue =
-                        currentCryptoCurrency.quote.getValue(this.toString()).price
-                    val newCryptoCurrencyValue = priceHigherEditText.text.toString().toDouble()
-                    if (newCryptoCurrencyValue > currentCryptoCurrencyValue) {
-                        percentHigherEditText.setText(
-                            String.format(
-                                Locale.ENGLISH,
-                                "%.2f",
-                                (newCryptoCurrencyValue - currentCryptoCurrencyValue) / currentCryptoCurrencyValue * 100
-                            )
+        try {
+            if (priceHigherEditText.text.toString().toDouble() > 0.0) {
+                val currentCryptoCurrencyValue =
+                    currentCryptoCurrency.quote.getValue(currencyTypesSpinner.selectedItem.toString()).price
+                val newCryptoCurrencyValue = priceHigherEditText.text.toString().toDouble()
+                if (newCryptoCurrencyValue > currentCryptoCurrencyValue) {
+                    percentHigherEditText.setText(
+                        String.format(
+                            "%.2f",
+                            (newCryptoCurrencyValue - currentCryptoCurrencyValue) / currentCryptoCurrencyValue * 100
                         )
-                    }
+                    )
                 }
-            } catch (numberFormatException: NumberFormatException) {
-                numberFormatException.printStackTrace()
-            } catch (noSuchElementException: NoSuchElementException) {
-                Toast.makeText(
-                    context,
-                    "No rate was found for the $this currency",
-                    Toast.LENGTH_SHORT
-                ).show()
-                noSuchElementException.printStackTrace()
             }
+        } catch (numberFormatException: NumberFormatException) {
+            numberFormatException.printStackTrace()
+        } catch (noSuchElementException: NoSuchElementException) {
+            noSuchElementException.printStackTrace()
         }
     }
 
     private fun calculateRisingPrice() {
-        with(currencyTypesSpinner.selectedItem) {
-            try {
-                if (percentHigherEditText.text.toString().toDouble() > 0.0) {
-                    val currentCryptoCurrencyValue =
-                        currentCryptoCurrency.quote.getValue(this.toString()).price
-                    val percentRising = percentHigherEditText.text.toString().toDouble()
-                    priceHigherEditText.setText(
-                        String.format(
-                            "%.2f",
-                            (currentCryptoCurrencyValue + (currentCryptoCurrencyValue * percentRising / 100))
-                        )
+        try {
+            if (percentHigherEditText.text.toString().toDouble() > 0.0) {
+                val currentCryptoCurrencyValue =
+                    currentCryptoCurrency.quote.getValue(currencyTypesSpinner.selectedItem.toString()).price
+                val percentRising = percentHigherEditText.text.toString().toDouble()
+                priceHigherEditText.setText(
+                    String.format(
+                        "%.2f",
+                        (currentCryptoCurrencyValue + (currentCryptoCurrencyValue * percentRising / 100))
                     )
-                }
-            } catch (numberFormatException: NumberFormatException) {
-                numberFormatException.printStackTrace()
-            } catch (noSuchElementException: NoSuchElementException) {
-                Toast.makeText(
-                    context,
-                    "No rate was found for the $this currency",
-                    Toast.LENGTH_SHORT
-                ).show()
-                noSuchElementException.printStackTrace()
+                )
             }
+        } catch (numberFormatException: NumberFormatException) {
+            numberFormatException.printStackTrace()
+        } catch (noSuchElementException: NoSuchElementException) {
+            noSuchElementException.printStackTrace()
         }
     }
 
     private fun calculateLoweringPercent() {
-        with(currencyTypesSpinner.selectedItem) {
-            try {
-                if (priceLowerEditText.text.toString().toDouble() > 0.0) {
-                    val currentCryptoCurrencyValue =
-                        currentCryptoCurrency.quote.getValue(this.toString()).price
-                    val newCryptoCurrencyValue = priceLowerEditText.text.toString().toDouble()
-                    if (newCryptoCurrencyValue < currentCryptoCurrencyValue) {
-                        percentLowerEditText.setText(
-                            String.format(
-                                Locale.ENGLISH,
-                                "%.2f",
-                                (currentCryptoCurrencyValue - newCryptoCurrencyValue) / currentCryptoCurrencyValue * 100
-                            )
+        try {
+            if (priceLowerEditText.text.toString().toDouble() > 0.0) {
+                val currentCryptoCurrencyValue =
+                    currentCryptoCurrency.quote.getValue(currencyTypesSpinner.selectedItem.toString()).price
+                val newCryptoCurrencyValue = priceLowerEditText.text.toString().toDouble()
+                if (newCryptoCurrencyValue < currentCryptoCurrencyValue) {
+                    percentLowerEditText.setText(
+                        String.format(
+                            "%.2f",
+                            (currentCryptoCurrencyValue - newCryptoCurrencyValue) / currentCryptoCurrencyValue * 100
                         )
-                    }
+                    )
                 }
-            } catch (numberFormatException: NumberFormatException) {
-                numberFormatException.printStackTrace()
-            } catch (noSuchElementException: NoSuchElementException) {
-                Toast.makeText(
-                    context,
-                    "No rate was found for the $this currency",
-                    Toast.LENGTH_SHORT
-                ).show()
-                noSuchElementException.printStackTrace()
             }
+        } catch (numberFormatException: NumberFormatException) {
+            numberFormatException.printStackTrace()
+        } catch (noSuchElementException: NoSuchElementException) {
+            noSuchElementException.printStackTrace()
         }
     }
 
     private fun calculateLoweringPrice() {
-        with(currencyTypesSpinner.selectedItem) {
-            try {
-                if (percentLowerEditText.text.toString().toDouble() > 0.0) {
-                    val currentCryptoCurrencyValue =
-                        currentCryptoCurrency.quote.getValue(this.toString()).price
-                    val percentLowering = percentLowerEditText.text.toString().toDouble()
-                    priceLowerEditText.setText(
-                        String.format(
-                            "%.2f",
-                            (currentCryptoCurrencyValue - (currentCryptoCurrencyValue * percentLowering / 100))
-                        )
+        try {
+            if (percentLowerEditText.text.toString().toDouble() > 0.0) {
+                val currentCryptoCurrencyValue =
+                    currentCryptoCurrency.quote.getValue(currencyTypesSpinner.selectedItem.toString()).price
+                val percentLowering = percentLowerEditText.text.toString().toDouble()
+                priceLowerEditText.setText(
+                    String.format(
+                        "%.2f",
+                        (currentCryptoCurrencyValue - (currentCryptoCurrencyValue * percentLowering / 100))
                     )
-                }
-            } catch (numberFormatException: NumberFormatException) {
-                numberFormatException.printStackTrace()
-            } catch (noSuchElementException: NoSuchElementException) {
-                Toast.makeText(
-                    context,
-                    "No rate was found for the $this currency",
-                    Toast.LENGTH_SHORT
-                ).show()
-                noSuchElementException.printStackTrace()
+                )
             }
+        } catch (numberFormatException: NumberFormatException) {
+            numberFormatException.printStackTrace()
+        } catch (noSuchElementException: NoSuchElementException) {
+            noSuchElementException.printStackTrace()
         }
     }
 
@@ -265,10 +235,15 @@ class AddNotificationFragment :
                 percentLowerEditText.highlightColor = requireContext().getColor(R.color.error_red)
             }
             !percentHigherEditText.text.isNullOrEmpty() -> {
+                val percentHigher = String.format(
+                    Locale.ENGLISH,
+                    "%.2f",
+                    percentHigherEditText.text
+                ).toDouble()
                 viewModel.createNotification(
                     requireContext(),
-                    "${currentCryptoCurrency.symbol}, +${percentHigherEditText.text}%",
-                    percentHigherEditText.text.toString().toDouble(),
+                    "${currentCryptoCurrency.symbol}, +$percentHigher%",
+                    percentHigher,
                     currentCryptoCurrency.symbol.toString(),
                     currencyTypesSpinner.selectedItem.toString(),
                     false,
@@ -277,10 +252,15 @@ class AddNotificationFragment :
                 findNavController().navigate(AddNotificationFragmentDirections.actionAddNotificationFragmentToNotificationsFragment())
             }
             !percentLowerEditText.text.isNullOrEmpty() -> {
+                val percentLower= String.format(
+                    Locale.ENGLISH,
+                    "%.2f",
+                    percentLowerEditText.text
+                ).toDouble()
                 viewModel.createNotification(
                     requireContext(),
-                    "${currentCryptoCurrency.symbol}, +${percentLowerEditText.text}%",
-                    percentLowerEditText.text.toString().toDouble(),
+                    "${currentCryptoCurrency.symbol}, +$percentLower%",
+                    percentLower,
                     currentCryptoCurrency.symbol.toString(),
                     currencyTypesSpinner.selectedItem.toString(),
                     false,

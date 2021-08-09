@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.vironit.garbuzov_cryptocurrency.R
@@ -64,6 +63,7 @@ class CryptoCurrencyConverterFragment :
                     position: Int,
                     id: Long
                 ) {
+                    displayCurrencyRate()
                     convertToCryptoCurrency()
                 }
 
@@ -87,13 +87,14 @@ class CryptoCurrencyConverterFragment :
                     currentCryptoCurrency = it
                     rateValueTextView.text = "1 $this = ${
                         String.format(
-                            "%.2f", currentCryptoCurrency.quote.getValue("USD").price
+                            "%.2f",
+                            currentCryptoCurrency.quote.getValue(currencyTypesSpinner.selectedItem.toString()).price
                         )
                     }$"
                     rateDateTextView.text =
                         "${requireContext().resources.getString(R.string.rate_date)} ${
                             currentCryptoCurrency.quote.getValue(
-                                "USD"
+                                currencyTypesSpinner.selectedItem.toString()
                             ).lastUpdated
                         }"
                 })
@@ -106,50 +107,36 @@ class CryptoCurrencyConverterFragment :
     }
 
     private fun convertFromCryptoCurrency() {
-        with(currencyTypesSpinner.selectedItem) {
-            try {
-                if (cryptoCurrencyInput.text.toString().toDouble() > 0.0) {
-                    currencyInput.setText(
-                        String.format(
-                            "%.2f",
-                            currentCryptoCurrency.quote[this.toString()]?.price!! * cryptoCurrencyInput.text.toString()
-                                .toDouble()
-                        )
+        try {
+            if (cryptoCurrencyInput.text.toString().toDouble() > 0.0) {
+                currencyInput.setText(
+                    String.format(
+                        "%.2f",
+                        currentCryptoCurrency.quote[currencyTypesSpinner.selectedItem.toString()]?.price!! * cryptoCurrencyInput.text.toString()
+                            .toDouble()
                     )
-                }
-            } catch (numberFormatException: NumberFormatException) {
-                numberFormatException.printStackTrace()
-            } catch (noSuchElementException: NoSuchElementException) {
-                Toast.makeText(
-                    context,
-                    "No rate was found for the $this currency",
-                    Toast.LENGTH_SHORT
-                ).show()
-                noSuchElementException.printStackTrace()
+                )
             }
+        } catch (numberFormatException: NumberFormatException) {
+            numberFormatException.printStackTrace()
+        } catch (noSuchElementException: NoSuchElementException) {
+            noSuchElementException.printStackTrace()
         }
     }
 
     private fun convertToCryptoCurrency() {
-        with(currencyTypesSpinner.selectedItem) {
-            try {
-                cryptoCurrencyInput.setText(
-                    String.format(
-                        "%.2f",
-                        (currencyInput.text.toString()
-                            .toDouble() / currentCryptoCurrency.quote[this.toString()]?.price!!)
-                    )
+        try {
+            cryptoCurrencyInput.setText(
+                String.format(
+                    "%.2f",
+                    (currencyInput.text.toString()
+                        .toDouble() / currentCryptoCurrency.quote[currencyTypesSpinner.selectedItem.toString()]?.price!!)
                 )
-            } catch (numberFormatException: NumberFormatException) {
-                numberFormatException.printStackTrace()
-            } catch (noSuchElementException: NoSuchElementException) {
-                Toast.makeText(
-                    context,
-                    "No rate was found for the $this currency",
-                    Toast.LENGTH_SHORT
-                ).show()
-                noSuchElementException.printStackTrace()
-            }
+            )
+        } catch (numberFormatException: NumberFormatException) {
+            numberFormatException.printStackTrace()
+        } catch (noSuchElementException: NoSuchElementException) {
+            noSuchElementException.printStackTrace()
         }
     }
 

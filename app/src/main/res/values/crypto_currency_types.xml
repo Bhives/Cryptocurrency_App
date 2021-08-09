@@ -2,7 +2,14 @@
 <resources>
     <string-array name="crypto_currency_types_array">
         <item>BTC</item>
-        <item>WBTC</item>
-        <item>YFI</item>
+        <item>BCH</item>
+        <item>ETH</item>
+        <item>ADA</item>
+        <item>DOGE</item>
+        <item>BNB</item>
+        <item>DOT</item>
+        <item>USDT</item>
+        <item>XRP</item>
+        <item>UNI</item>
     </string-array>
 </resources>

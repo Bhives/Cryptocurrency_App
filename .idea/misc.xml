@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_crypto_currencies_search.xml" value="0.19739583333333333" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_crypto_currency_rates.xml" value="0.19739583333333333" />
         <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_notifications.xml" value="0.1621376811594203" />
         <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/notification_card.xml" value="0.19739583333333333" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Garbuzov_Cryptocurrency/app/src/main/res/drawable/currencies_tab_selector.xml" value="0.37083333333333335" />

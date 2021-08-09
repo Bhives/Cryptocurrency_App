@@ -276,11 +276,7 @@ class AddNotificationFragment :
                 percentLowerEditText.highlightColor = requireContext().getColor(R.color.error_red)
             }
             !percentHigherEditText.text.isNullOrEmpty() -> {
-                val percentHigher = String.format(
-                    Locale.ENGLISH,
-                    "%.2f",
-                    percentHigherEditText.text
-                ).toDouble()
+                val percentHigher = percentHigherEditText.text.toString().toDouble()
                 viewModel.createNotification(
                     requireContext(),
                     "${currentCryptoCurrency.symbol}, +$percentHigher%",
@@ -293,11 +289,7 @@ class AddNotificationFragment :
                 findNavController().navigate(AddNotificationFragmentDirections.actionAddNotificationFragmentToNotificationsFragment())
             }
             !percentLowerEditText.text.isNullOrEmpty() -> {
-                val percentLower = String.format(
-                    Locale.ENGLISH,
-                    "%.2f",
-                    percentLowerEditText.text
-                ).toDouble()
+                val percentLower = percentLowerEditText.text.toString().toDouble()
                 viewModel.createNotification(
                     requireContext(),
                     "${currentCryptoCurrency.symbol}, +$percentLower%",

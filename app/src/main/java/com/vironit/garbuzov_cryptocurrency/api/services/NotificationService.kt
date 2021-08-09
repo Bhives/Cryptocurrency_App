@@ -5,17 +5,15 @@ import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.Handler
 import android.os.IBinder
 import android.provider.Settings
-import androidx.annotation.RequiresApi
+import android.widget.Toast
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.utils.NotificationServiceRequest
 import com.vironit.garbuzov_cryptocurrency.utils.NotificationTemplate
 import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.CHANNEL_ID
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
@@ -23,8 +21,6 @@ import java.util.*
 class NotificationService() :
     Service() {
 
-    private lateinit var mHandler: Handler
-    private lateinit var mRunnable: Runnable
     var currentValue = 0.0
 
     override fun onBind(intent: Intent): IBinder? {
@@ -38,59 +34,65 @@ class NotificationService() :
         calendar.timeInMillis = System.currentTimeMillis()
         calendar.add(Calendar.SECOND, 30)
         alarmManager.set(AlarmManager.RTC, calendar.timeInMillis, pendingIntent)
-        when {
-            intent.getIntExtra("stonksFlag", 0) == 1 -> {
-                processPriceRising(
-                    intent.getStringExtra("notificationName")!!,
-                    intent.getDoubleExtra("requiredPercent", 0.0),
-                    intent.getStringExtra("currencySymbol")!!,
-                    intent.getBooleanExtra("setVibration", false)
-                )
-            }
-            intent.getIntExtra("stonksFlag", 0) == 0 -> {
-                processPriceLowering(
-                    intent.getStringExtra("notificationName")!!,
-                    intent.getDoubleExtra("requiredPercent", 0.0),
-                    intent.getStringExtra("currencySymbol")!!,
-                    intent.getBooleanExtra("setVibration", false)
-                )
+        GlobalScope.launch {
+            when {
+                intent.getIntExtra("stonksFlag", 0) == 1 -> {
+                    processPriceRising(
+                        intent.getStringExtra("notificationName")!!,
+                        intent.getDoubleExtra("requiredPercent", 0.0),
+                        intent.getStringExtra("cryptoCurrencySymbol")!!,
+                        intent.getStringExtra("currencySymbol")!!,
+                        intent.getBooleanExtra("setVibration", false)
+                    )
+                }
+                intent.getIntExtra("stonksFlag", 0) == 0 -> {
+                    processPriceLowering(
+                        intent.getStringExtra("notificationName")!!,
+                        intent.getDoubleExtra("requiredPercent", 0.0),
+                        intent.getStringExtra("cryptoCurrencySymbol")!!,
+                        intent.getStringExtra("currencySymbol")!!,
+                        intent.getBooleanExtra("setVibration", false)
+                    )
+                }
             }
         }
         return START_STICKY
     }
 
     @SuppressLint("NewApi")
-    private fun processPriceRising(
+    private suspend fun processPriceRising(
         notificationName: String,
         requiredPercent: Double,
+        cryptoCurrencySymbol: String,
         currencySymbol: String,
         setVibration: Boolean
     ) {
-        val newValue = serverRequest(currencySymbol)
+        val newValue = serverRequest(cryptoCurrencySymbol, currencySymbol)
         if (currentValue == 0.0) {
             currentValue = newValue
         }
         val stonksPercent = (newValue - currentValue) / currentValue * 100
-        //if (stonksPercent >= requiredPercent) {
-        createNotification(
-            notificationName,
-            newValue,
-            currencySymbol,
-            setVibration,
-            true
-        )
-        //}
+        if (stonksPercent >= requiredPercent) {
+            createNotification(
+                notificationName,
+                stonksPercent,
+                cryptoCurrencySymbol,
+                setVibration,
+                true
+            )
+        }
         currentValue = newValue
     }
 
     @SuppressLint("NewApi")
-    private fun processPriceLowering(
+    private suspend fun processPriceLowering(
         notificationName: String,
         requiredPercent: Double,
+        cryptoCurrencySymbol: String,
         currencySymbol: String,
         setVibration: Boolean
     ) {
-        val newValue = serverRequest(currencySymbol)
+        val newValue = serverRequest(cryptoCurrencySymbol, currencySymbol)
         if (currentValue == 0.0) {
             currentValue = newValue
         }
@@ -99,7 +101,7 @@ class NotificationService() :
             createNotification(
                 notificationName,
                 destonksPercent,
-                currencySymbol,
+                cryptoCurrencySymbol,
                 setVibration,
                 false
             )
@@ -107,26 +109,17 @@ class NotificationService() :
         currentValue = newValue
     }
 
-    @DelicateCoroutinesApi
-    private fun serverRequest(currencySymbol: String): Double {
-        var result = 0.0
-        try {
-            GlobalScope.launch {
-                result =
-                    NotificationServiceRequest().serverRequest(
-                        currencySymbol
-                    )
-            }
-        } catch (nullPointerException: NullPointerException) {
-            nullPointerException.printStackTrace()
-        }
-        return result
+    private suspend fun serverRequest(cryptoCurrencySymbol: String, currencySymbol: String): Double {
+        return NotificationServiceRequest().serverRequest(
+            cryptoCurrencySymbol,
+            currencySymbol
+        )
     }
 
     private fun createNotification(
         notificationName: String,
         receivedPercent: Double,
-        currencySymbol: String,
+        cryptoCurrencySymbol: String,
         setVibration: Boolean,
         stonks: Boolean
     ) {
@@ -148,20 +141,31 @@ class NotificationService() :
             notificationManager.createNotificationChannel(channel)
         }
         var notificationTitle = ""
-        notificationTitle = if (stonks) {
-            "$currencySymbol ${this.resources.getString(R.string.message_stonks)}"
+        var notificationText = ""
+        if (stonks) {
+            notificationTitle =
+                "$cryptoCurrencySymbol ${this.resources.getString(R.string.message_stonks)}"
+            notificationText = String.format(
+                "+%.2f%%",
+                receivedPercent
+            )
         } else {
-            "$currencySymbol ${this.resources.getString(R.string.message_destonks)}"
+            notificationTitle =
+                "$cryptoCurrencySymbol ${this.resources.getString(R.string.message_destonks)}"
+            notificationText = String.format(
+                "-%.2f%%",
+                receivedPercent
+            )
         }
+
         NotificationTemplate().initializeBuilder(
             this,
             notificationTitle,
-            "$receivedPercent"
+            notificationText
         )
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mHandler.removeCallbacks(mRunnable)
     }
 }

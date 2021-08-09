@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NotificationServiceRequest {
 
     suspend fun serverRequest(
+        cryptoCurrencySymbol: String,
         currencySymbol: String
     ): Double {
         val retrofitBuilder = Retrofit.Builder()
@@ -14,7 +15,7 @@ class NotificationServiceRequest {
             .baseUrl(CryptoCurrencyApi.BASE_URL)
             .build()
             .create(CryptoCurrencyApi::class.java)
-        val retrofitData = retrofitBuilder.getCurrentCryptoCurrency(1.0, currencySymbol)
-        return retrofitData.data.quote["USD"]?.price!!
+        val retrofitData = retrofitBuilder.getCurrentCryptoCurrency(1.0, cryptoCurrencySymbol, currencySymbol)
+        return retrofitData.data.quote[currencySymbol]?.price!!
     }
 }

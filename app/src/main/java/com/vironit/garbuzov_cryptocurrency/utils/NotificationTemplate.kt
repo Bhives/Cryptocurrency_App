@@ -20,7 +20,7 @@ class NotificationTemplate {
 
     fun initializeBuilder(context: Context, notificationTitle: String, notificationText: String) {
         val notificationBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_notifications)
+            .setSmallIcon(R.mipmap.ic_stonks)
             .setContentTitle(notificationTitle)
             .setContentText(notificationText)
             .setAutoCancel(true)

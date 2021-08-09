@@ -26,8 +26,8 @@ class CryptoCurrencyRepository @Inject constructor(
         pagingSourceFactory = { CryptoCurrenciesPagingSource(cryptoCurrencyApi) }
     ).liveData
 
-    suspend fun getCurrentCryptoCurrency(amount: Double, symbol: String): ConvertedCryptoCurrency {
-        return cryptoCurrencyApi.getCurrentCryptoCurrency(amount, symbol).data
+    suspend fun getCurrentCryptoCurrency(amount: Double, cryptoCurrencySymbol: String, currencySymbol: String): ConvertedCryptoCurrency {
+        return cryptoCurrencyApi.getCurrentCryptoCurrency(amount, cryptoCurrencySymbol, currencySymbol).data
     }
 
     fun insertToFavorites(cryptoCurrency: CryptoCurrency) =

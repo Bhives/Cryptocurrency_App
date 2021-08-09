@@ -32,14 +32,16 @@ class NotificationsViewModel @Inject constructor(
 
     fun getConvertedCryptoCurrency(
         amount: Double,
-        cryptoCurrencySymbol: String
+        cryptoCurrencySymbol: String,
+        currencySymbol: String
     ): LiveData<ConvertedCryptoCurrency> {
         val result = MutableLiveData<ConvertedCryptoCurrency>()
         viewModelScope.launch(Dispatchers.IO) {
             result.postValue(
                 cryptoCurrencyRepository.getCurrentCryptoCurrency(
                     amount,
-                    cryptoCurrencySymbol
+                    cryptoCurrencySymbol,
+                    currencySymbol
                 )
             )
         }
@@ -65,6 +67,7 @@ class NotificationsViewModel @Inject constructor(
         context: Context,
         notificationName: String,
         requiredPercent: Double,
+        cryptoCurrencySymbol: String,
         currencySymbol: String,
         setVibration: Boolean,
         stonksFlag: Int
@@ -79,6 +82,7 @@ class NotificationsViewModel @Inject constructor(
             val serviceIntent = Intent(context, notificationService)
             serviceIntent.putExtra("notificationName", notificationName)
             serviceIntent.putExtra("requiredPercent", requiredPercent)
+            serviceIntent.putExtra("cryptoCurrencySymbol", cryptoCurrencySymbol)
             serviceIntent.putExtra("currencySymbol", currencySymbol)
             serviceIntent.putExtra("setVibration", setVibration)
             serviceIntent.putExtra("stonksFlag", stonksFlag)

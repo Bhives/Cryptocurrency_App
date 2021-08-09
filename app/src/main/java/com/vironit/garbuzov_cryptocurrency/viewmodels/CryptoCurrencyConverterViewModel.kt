@@ -17,14 +17,16 @@ class CryptoCurrencyConverterViewModel @Inject constructor(var cryptoCurrencyRep
 
     fun getConvertedCryptoCurrency(
         amount: Double,
-        cryptoCurrencySymbol: String
+        cryptoCurrencySymbol: String,
+        currencySymbol: String
     ): LiveData<ConvertedCryptoCurrency> {
         val result = MutableLiveData<ConvertedCryptoCurrency>()
         viewModelScope.launch(Dispatchers.IO) {
             result.postValue(
                 cryptoCurrencyRepository.getCurrentCryptoCurrency(
                     amount,
-                    cryptoCurrencySymbol
+                    cryptoCurrencySymbol,
+                    currencySymbol
                 )
             )
         }

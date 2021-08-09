@@ -81,7 +81,8 @@ class CryptoCurrencyConverterFragment :
             with(cryptoCurrencyTypesSpinner.selectedItem.toString()) {
                 viewModel.getConvertedCryptoCurrency(
                     1.0,
-                    this
+                    this,
+                    currencyTypesSpinner.selectedItem.toString()
                 ).observe(viewLifecycleOwner, {
                     currentCryptoCurrency = it
                     rateValueTextView.text = "1 $this = ${

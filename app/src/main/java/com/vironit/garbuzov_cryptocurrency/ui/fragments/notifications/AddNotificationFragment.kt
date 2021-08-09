@@ -117,7 +117,8 @@ class AddNotificationFragment :
             with(currencyTypesSpinner.selectedItem.toString()) {
                 viewModel.getConvertedCryptoCurrency(
                     1.0,
-                    cryptoCurrencyTypesSpinner.selectedItem.toString()
+                    cryptoCurrencyTypesSpinner.selectedItem.toString(),
+                    currencyTypesSpinner.selectedItem.toString()
                 ).observe(viewLifecycleOwner, {
                     currentCryptoCurrency = it
                     rateValueTextView.text = "1 ${cryptoCurrencyTypesSpinner.selectedItem} = ${
@@ -269,6 +270,7 @@ class AddNotificationFragment :
                     "${currentCryptoCurrency.symbol}, +${percentHigherEditText.text}%",
                     percentHigherEditText.text.toString().toDouble(),
                     currentCryptoCurrency.symbol.toString(),
+                    currencyTypesSpinner.selectedItem.toString(),
                     false,
                     1
                 )
@@ -280,6 +282,7 @@ class AddNotificationFragment :
                     "${currentCryptoCurrency.symbol}, +${percentLowerEditText.text}%",
                     percentLowerEditText.text.toString().toDouble(),
                     currentCryptoCurrency.symbol.toString(),
+                    currencyTypesSpinner.selectedItem.toString(),
                     false,
                     0
                 )

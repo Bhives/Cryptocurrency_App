@@ -1,5 +1,6 @@
 package com.vironit.garbuzov_cryptocurrency.api
 
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -17,7 +18,8 @@ interface CryptoCurrencyApi {
     @GET("/v1/tools/price-conversion")
     suspend fun getCurrentCryptoCurrency(
         @Query("amount") amount: Double,
-        @Query("symbol") symbol: String
+        @Query("symbol") symbol: String,
+        @Query ("convert") convert: String
     ): ConvertedCryptoCurrencyResult
 
     companion object {

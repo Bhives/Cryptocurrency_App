@@ -1,5 +1,6 @@
 package com.vironit.garbuzov_cryptocurrency.api.services
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.provider.Settings
+import androidx.annotation.RequiresApi
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.R
@@ -34,7 +36,7 @@ class NotificationService() :
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val calendar: Calendar = Calendar.getInstance()
         calendar.timeInMillis = System.currentTimeMillis()
-        calendar.add(Calendar.SECOND, 5)
+        calendar.add(Calendar.SECOND, 30)
         alarmManager.set(AlarmManager.RTC, calendar.timeInMillis, pendingIntent)
         when {
             intent.getIntExtra("stonksFlag", 0) == 1 -> {
@@ -57,7 +59,7 @@ class NotificationService() :
         return START_STICKY
     }
 
-
+    @SuppressLint("NewApi")
     private fun processPriceRising(
         notificationName: String,
         requiredPercent: Double,
@@ -68,19 +70,20 @@ class NotificationService() :
         if (currentValue == 0.0) {
             currentValue = newValue
         }
-        val stonksPercent = (newValue - currentValue) / 100
-        if (stonksPercent >= requiredPercent) {
+        val stonksPercent = (newValue - currentValue) / currentValue * 100
+        //if (stonksPercent >= requiredPercent) {
         createNotification(
             notificationName,
-            14.88,
+            newValue,
             currencySymbol,
             setVibration,
             true
         )
-        }
+        //}
         currentValue = newValue
     }
 
+    @SuppressLint("NewApi")
     private fun processPriceLowering(
         notificationName: String,
         requiredPercent: Double,
@@ -91,7 +94,7 @@ class NotificationService() :
         if (currentValue == 0.0) {
             currentValue = newValue
         }
-        val destonksPercent = (currentValue - newValue) / 100
+        val destonksPercent = (currentValue - newValue) / currentValue * 100
         if (destonksPercent >= requiredPercent) {
             createNotification(
                 notificationName,

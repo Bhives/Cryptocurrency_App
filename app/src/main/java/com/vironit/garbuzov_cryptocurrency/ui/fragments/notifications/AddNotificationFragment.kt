@@ -14,7 +14,7 @@ import com.vironit.garbuzov_cryptocurrency.data.entities.ConvertedCryptoCurrency
 import com.vironit.garbuzov_cryptocurrency.databinding.FragmentAddNotificationBinding
 import com.vironit.garbuzov_cryptocurrency.ui.bindingActivity
 import com.vironit.garbuzov_cryptocurrency.ui.templates.BaseFragment
-import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.AddNotificationViewModel
+import com.vironit.garbuzov_cryptocurrency.viewmodels.notifications.NotificationsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_notification.*
 import retrofit2.HttpException
@@ -26,7 +26,7 @@ import kotlin.NoSuchElementException
 class AddNotificationFragment :
     BaseFragment<FragmentAddNotificationBinding>(R.layout.fragment_add_notification) {
 
-    override val viewModel by viewModels<AddNotificationViewModel>()
+    override val viewModel by viewModels<NotificationsViewModel>()
     lateinit var currentCryptoCurrency: ConvertedCryptoCurrency
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

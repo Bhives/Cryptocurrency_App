@@ -1,6 +1,5 @@
 package com.vironit.garbuzov_cryptocurrency.viewmodels.notifications
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.content.Intent
@@ -8,10 +7,12 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.vironit.garbuzov_cryptocurrency.api.services.NotificationService
 import com.vironit.garbuzov_cryptocurrency.data.CryptoCurrencyRepository
 import com.vironit.garbuzov_cryptocurrency.data.entities.ConvertedCryptoCurrency
-import com.vironit.garbuzov_cryptocurrency.utils.NotificationServiceRequest
+import com.vironit.garbuzov_cryptocurrency.data.entities.CustomNotification
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ const val CHANNEL_ID: String = "CHANNEL_ID"
 const val NOTIFICATION_ID = 101
 
 @HiltViewModel
-class AddNotificationViewModel @Inject constructor(
+class NotificationsViewModel @Inject constructor(
     var cryptoCurrencyRepository: CryptoCurrencyRepository, application: Application
 ) : AndroidViewModel(application) {
 
@@ -45,6 +46,21 @@ class AddNotificationViewModel @Inject constructor(
         return result
     }
 
+    fun insertNotification(customNotification: CustomNotification) {
+        viewModelScope.launch(Dispatchers.IO) {
+            cryptoCurrencyRepository.insertNotification(customNotification)
+        }
+    }
+
+    fun getAllCustomNotifications(): LiveData<List<CustomNotification>> {
+        var customNotificationsList =
+            MutableLiveData(listOf<CustomNotification>()) as LiveData<List<CustomNotification>>
+        viewModelScope.launch(Dispatchers.IO) {
+            customNotificationsList = cryptoCurrencyRepository.getAllNotifications()
+        }
+        return customNotificationsList
+    }
+
     fun createNotification(
         context: Context,
         notificationName: String,
@@ -54,6 +70,12 @@ class AddNotificationViewModel @Inject constructor(
         stonksFlag: Int
     ) {
         try {
+            insertNotification(
+                CustomNotification(
+                    "$currencySymbol $requiredPercent%",
+                    Firebase.auth.currentUser?.displayName.toString()
+                )
+            )
             val serviceIntent = Intent(context, notificationService)
             serviceIntent.putExtra("notificationName", notificationName)
             serviceIntent.putExtra("requiredPercent", requiredPercent)

@@ -24,7 +24,6 @@ data class CryptoCurrency(
     @SerializedName("last_updated") @Expose val lastUpdated: String?,
     @SerializedName("date_added") @Expose val dateAdded: String?,
     @SerializedName("tags") @Expose val tags: List<String>?,
-    //@SerializedName("platform") @Expose val platform: Platform?,
     @SerializedName("quote") @Expose val quote: Map<String, Quote>
 ) : Parcelable {
     @Parcelize

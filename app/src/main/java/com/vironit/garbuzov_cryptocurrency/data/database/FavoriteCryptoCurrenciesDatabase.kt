@@ -5,12 +5,14 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.vironit.garbuzov_cryptocurrency.data.entities.CryptoCurrency
+import com.vironit.garbuzov_cryptocurrency.data.entities.CustomNotification
 import com.vironit.garbuzov_cryptocurrency.di.AppModule
 
-@Database(entities = [CryptoCurrency::class], version = 1)
+@Database(entities = [CryptoCurrency::class, CustomNotification::class], version = 1)
 @TypeConverters(CryptoCurrencyDataConverter::class)
 abstract class FavoriteCryptoCurrenciesDatabase : RoomDatabase() {
     abstract fun favoriteCryptoCurrencyDao(): FavoriteCryptoCurrencyDao
+    abstract fun customNotificationDao(): CustomNotificationDao
 
     companion object {
         @Volatile

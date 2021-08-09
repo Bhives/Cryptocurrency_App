@@ -3,16 +3,16 @@
     <item
         android:id="@+id/cryptoCurrencyRatesFragment"
         android:icon="@drawable/ic_rates"
-        android:title="" />
+        android:title="@string/currencies_list" />
 
     <item
         android:id="@+id/cryptoCurrencyConverterFragment"
         android:icon="@drawable/ic_converter"
-        android:title="" />
+        android:title="@string/converter" />
 
     <item
         android:id="@+id/notificationsFragment"
         android:icon="@drawable/ic_notifications"
-        android:title="" />
+        android:title="@string/notifications" />
 
 </menu>

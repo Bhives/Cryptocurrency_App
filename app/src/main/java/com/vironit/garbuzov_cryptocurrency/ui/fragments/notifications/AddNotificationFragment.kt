@@ -1,10 +1,12 @@
 package com.vironit.garbuzov_cryptocurrency.ui.fragments.notifications
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -29,6 +31,7 @@ class AddNotificationFragment :
     override val viewModel by viewModels<NotificationsViewModel>()
     lateinit var currentCryptoCurrency: ConvertedCryptoCurrency
 
+    @SuppressLint("InlinedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindingActivity.bottomNavigationMenu.isVisible = false
@@ -107,6 +110,15 @@ class AddNotificationFragment :
         }
 
         createNotificationButton.setOnClickListener {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.ACCESS_NOTIFICATION_POLICY
+                ),
+                100
+            )
+
             addNotification()
         }
     }
@@ -134,12 +146,14 @@ class AddNotificationFragment :
         } catch (httpException: HttpException) {
             httpException.printStackTrace()
         } catch (noSuchElementException: NoSuchElementException) {
+            noSuchElementException.printStackTrace()
+        } catch (nullPointerException: NullPointerException) {
             Toast.makeText(
                 context,
                 "No rate was found for the $this currency",
                 Toast.LENGTH_SHORT
             ).show()
-            noSuchElementException.printStackTrace()
+            nullPointerException.printStackTrace()
         }
     }
 
@@ -182,6 +196,13 @@ class AddNotificationFragment :
             numberFormatException.printStackTrace()
         } catch (noSuchElementException: NoSuchElementException) {
             noSuchElementException.printStackTrace()
+        } catch (nullPointerException: NullPointerException) {
+            Toast.makeText(
+                context,
+                "No rate was found for the $this currency",
+                Toast.LENGTH_SHORT
+            ).show()
+            nullPointerException.printStackTrace()
         }
     }
 
@@ -204,6 +225,13 @@ class AddNotificationFragment :
             numberFormatException.printStackTrace()
         } catch (noSuchElementException: NoSuchElementException) {
             noSuchElementException.printStackTrace()
+        } catch (nullPointerException: NullPointerException) {
+            Toast.makeText(
+                context,
+                "No rate was found for the $this currency",
+                Toast.LENGTH_SHORT
+            ).show()
+            nullPointerException.printStackTrace()
         }
     }
 
@@ -224,6 +252,13 @@ class AddNotificationFragment :
             numberFormatException.printStackTrace()
         } catch (noSuchElementException: NoSuchElementException) {
             noSuchElementException.printStackTrace()
+        } catch (nullPointerException: NullPointerException) {
+            Toast.makeText(
+                context,
+                "No rate was found for the $this currency",
+                Toast.LENGTH_SHORT
+            ).show()
+            nullPointerException.printStackTrace()
         }
     }
 
@@ -252,7 +287,7 @@ class AddNotificationFragment :
                 findNavController().navigate(AddNotificationFragmentDirections.actionAddNotificationFragmentToNotificationsFragment())
             }
             !percentLowerEditText.text.isNullOrEmpty() -> {
-                val percentLower= String.format(
+                val percentLower = String.format(
                     Locale.ENGLISH,
                     "%.2f",
                     percentLowerEditText.text

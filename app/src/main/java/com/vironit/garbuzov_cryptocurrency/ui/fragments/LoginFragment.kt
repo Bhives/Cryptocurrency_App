@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -17,6 +18,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.vironit.garbuzov_cryptocurrency.R
 import com.vironit.garbuzov_cryptocurrency.databinding.FragmentLoginBinding
 import com.vironit.garbuzov_cryptocurrency.ui.bindingActivity
+import com.vironit.garbuzov_cryptocurrency.ui.fragments.cryptocurrency_rates.CryptoCurrenciesSearchFragmentDirections
 import com.vironit.garbuzov_cryptocurrency.ui.templates.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,13 +62,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
+        ActivityCompat.requestPermissions(
+            this.requireActivity(),
+            arrayOf(android.Manifest.permission.READ_CONTACTS),
+            100
+        )
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this.requireActivity()) { task ->
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "signInWithCredential:success")
                     auth.currentUser
-                    findNavController().navigate(R.id.action_loginFragment_to_cryptoCurrencyRatesFragment)
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToCryptoCurrenciesSearchFragment())
                 } else {
                     Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
                 }

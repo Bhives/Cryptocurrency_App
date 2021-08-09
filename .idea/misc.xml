@@ -3,10 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/drawable/favorite_toggle.xml" value="0.37083333333333335" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/drawable/favorite_toggle_bg.xml" value="0.37083333333333335" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/drawable/ragment_slide_in.xml" value="0.21354166666666666" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/crypto_currency_card.xml" value="0.3546875" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_add_notification.xml" value="0.3546875" />
         <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_crypto_currencies_search.xml" value="0.19739583333333333" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_crypto_currency_converter.xml" value="0.3546875" />
         <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_crypto_currency_rates.xml" value="0.19739583333333333" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_login.xml" value="0.3546875" />
         <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_notifications.xml" value="0.1621376811594203" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/fragment_splash_screen.xml" value="0.3546875" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/navigation_header.xml" value="0.25" />
         <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/notification_card.xml" value="0.19739583333333333" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/layout/toolbar.xml" value="0.3546875" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/menu/bottom_menu.xml" value="0.3546875" />
+        <entry key="..\:/GitHub/Android/Garbuzov_Cryptocurrency_app/app/src/main/res/menu/navigation_menu.xml" value="0.3546875" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Garbuzov_Cryptocurrency/app/src/main/res/drawable/currencies_tab_selector.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Garbuzov_Cryptocurrency/app/src/main/res/drawable/favorite_roggle_bg.xml" value="0.37083333333333335" />
         <entry key="..\:/Users/User/AndroidStudioProjects/Garbuzov_Cryptocurrency/app/src/main/res/drawable/ic_favorite_toggle.xml" value="0.37083333333333335" />

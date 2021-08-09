@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreenFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
+
     </fragment>
 
     <fragment
@@ -22,7 +27,11 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_cryptoCurrenciesSearchFragment"
-            app:destination="@id/cryptoCurrenciesSearchFragment" />
+            app:destination="@id/cryptoCurrenciesSearchFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
     </fragment>
 
     <fragment
@@ -32,10 +41,18 @@
         tools:layout="@layout/fragment_crypto_currency_converter">
         <action
             android:id="@+id/action_cryptoCurrencyConverterFragment_to_notificationsFragment"
-            app:destination="@id/notificationsFragment" />
+            app:destination="@id/notificationsFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
         <action
             android:id="@+id/action_cryptoCurrencyConverterFragment_to_cryptoCurrenciesSearchFragment"
-            app:destination="@id/cryptoCurrenciesSearchFragment" />
+            app:destination="@id/cryptoCurrenciesSearchFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
     </fragment>
 
     <fragment
@@ -45,10 +62,18 @@
         tools:layout="@layout/fragment_notifications">
         <action
             android:id="@+id/action_notificationsFragment_to_cryptoCurrencyConverterFragment"
-            app:destination="@id/cryptoCurrencyConverterFragment" />
+            app:destination="@id/cryptoCurrencyConverterFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
         <action
             android:id="@+id/action_notificationsFragment_to_addNotificationFragment"
-            app:destination="@id/addNotificationFragment" />
+            app:destination="@id/addNotificationFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
     </fragment>
 
     <fragment
@@ -58,7 +83,11 @@
         tools:layout="@layout/fragment_add_notification">
         <action
             android:id="@+id/action_addNotificationFragment_to_notificationsFragment"
-            app:destination="@id/notificationsFragment" />
+            app:destination="@id/notificationsFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
     </fragment>
 
     <fragment
@@ -68,6 +97,17 @@
         tools:layout="@layout/fragment_crypto_currencies_search">
         <action
             android:id="@+id/action_cryptoCurrenciesSearchFragment_to_notificationsFragment"
-            app:destination="@id/notificationsFragment" />
+            app:destination="@id/notificationsFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
+        <action
+            android:id="@+id/action_cryptoCurrenciesSearchFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/fragment_slide_in"
+            app:exitAnim="@anim/fragment_slide_out"
+            app:popEnterAnim="@anim/fragment_slide_in"
+            app:popExitAnim="@anim/fragment_slide_out" />
     </fragment>
 </navigation>

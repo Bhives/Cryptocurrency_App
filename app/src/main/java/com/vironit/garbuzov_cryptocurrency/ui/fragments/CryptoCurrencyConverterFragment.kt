@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import com.vironit.garbuzov_cryptocurrency.R
@@ -90,7 +91,7 @@ class CryptoCurrencyConverterFragment :
                             "%.2f",
                             currentCryptoCurrency.quote.getValue(currencyTypesSpinner.selectedItem.toString()).price
                         )
-                    }$"
+                    }${currencyTypesSpinner.selectedItem}"
                     rateDateTextView.text =
                         "${requireContext().resources.getString(R.string.rate_date)} ${
                             currentCryptoCurrency.quote.getValue(
@@ -103,6 +104,13 @@ class CryptoCurrencyConverterFragment :
             iOException.printStackTrace()
         } catch (httpException: HttpException) {
             httpException.printStackTrace()
+        } catch (nullPointerException: NullPointerException) {
+            Toast.makeText(
+                context,
+                "No rate was found for the $this currency",
+                Toast.LENGTH_SHORT
+            ).show()
+            nullPointerException.printStackTrace()
         }
     }
 
@@ -121,6 +129,13 @@ class CryptoCurrencyConverterFragment :
             numberFormatException.printStackTrace()
         } catch (noSuchElementException: NoSuchElementException) {
             noSuchElementException.printStackTrace()
+        } catch (nullPointerException: NullPointerException) {
+            Toast.makeText(
+                context,
+                "No rate was found for the $this currency",
+                Toast.LENGTH_SHORT
+            ).show()
+            nullPointerException.printStackTrace()
         }
     }
 
@@ -137,6 +152,13 @@ class CryptoCurrencyConverterFragment :
             numberFormatException.printStackTrace()
         } catch (noSuchElementException: NoSuchElementException) {
             noSuchElementException.printStackTrace()
+        } catch (nullPointerException: NullPointerException) {
+            Toast.makeText(
+                context,
+                "No rate was found for the $this currency",
+                Toast.LENGTH_SHORT
+            ).show()
+            nullPointerException.printStackTrace()
         }
     }
 

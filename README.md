@@ -1,2 +1,2 @@
-# Garbuzov_Cryptocurrency_app
+# Cryptocurrency_app
 
